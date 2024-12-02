@@ -10,7 +10,6 @@
   environment.systemPackages = with pkgs; [ 
     vim
     home-manager
-    nerdfonts
     alacritty
   ];
 

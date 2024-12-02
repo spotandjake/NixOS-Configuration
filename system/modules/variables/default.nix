@@ -15,14 +15,10 @@ in {
 
   config = mkIf cfg.enable {
     environment.variables = {
-      QT_QPA_PLATFORM        = "wayland";
-      SDL_VIDEODRIVER        = "wayland";
-      CLUTTER_BACKEND        = "wayland";
-      GDK_BACKEND            = "wayland";
+      # TODO: Look into setup for this
       NIXPKGS_ALLOW_UNFREE   = "1";
       NIXPKGS_ALLOW_INSECURE = "1";
       MOZ_ENABLE_WAYLAND     = "1";
-      XDG_SESSION_TYPE       = "wayland";
       NIXOS_OZONE_WL         = "1";
     };
 

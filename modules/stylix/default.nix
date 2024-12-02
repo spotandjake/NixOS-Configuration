@@ -40,29 +40,6 @@ in {
         package = pkgs.vimix-cursors;
         size    = cursorSize;
       };
-
-      fonts = {
-        sizes = {
-          applications = 11;
-          terminal     = 11;
-          popups       = 12;
-          desktop      = 11;
-        };
-
-        serif = {
-          package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; };
-          name    = "Iosevka Nerd Font Mono";
-        };
-
-        sansSerif = config.stylix.fonts.serif;
-
-        monospace = {
-          inherit (config.stylix.fonts.serif) package;
-          name    = "Iosevka Nerd Font Mono";
-        };
-
-        emoji = config.stylix.fonts.serif;
-      };
     };
   };
 }

@@ -15,11 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "UbuntuMono" ]; })
-      corefonts
-    ];
-
     environment.systemPackages = with pkgs; [
       # Utils
       git
@@ -57,9 +52,6 @@ in {
       ipcalc
       cacert
     ] ++ optionals isWorkstation [
-      # Themes
-      tela-circle-icon-theme
-
       # Hardware
       microcodeIntel
       libGL
@@ -69,9 +61,6 @@ in {
       intel-gpu-tools
       fwupd
       fwupd-efi
-
-      # Utils
-      dconf-editor
     ];
   };
 }

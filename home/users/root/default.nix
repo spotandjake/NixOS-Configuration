@@ -18,10 +18,8 @@
   ];
 
   module = {
+    # TODO: Configure This???
     git.enable = true;
-    htop.enable = true;
-    neofetch.enable = true;
-    nvim.enable = true;
     zsh.enable = true;
 
     nix-config = {

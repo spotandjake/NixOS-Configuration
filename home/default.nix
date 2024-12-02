@@ -9,10 +9,6 @@
 , homeModules
 , commonModules
 , isWorkstation ? false
-, wm ? ""
-, swayEnable ? false
-, hyprlandEnable ? false
-, wmEnable ? false
 , ...
 }:
 
@@ -45,11 +41,7 @@ in {
         isLinux 
         commonModules 
         homeModules 
-        isWorkstation
-        wm 
-        swayEnable 
-        hyprlandEnable 
-        wmEnable;
+        isWorkstation;
     };
 
     users.${username} = {

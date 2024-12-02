@@ -57,8 +57,7 @@
 - OS - [**`NixOS`**](https://nixos.org/)
 - Theme - [**`Nord`**](https://github.com/nordtheme/nord)
 - Wallpapers - [**`Grey wave`**](assets/grey_gradient.png)
-- Editor - [**`Neovim`**](https://neovim.io/)
-- Bar - [**`Waybar`**](https://github.com/Alexays/Waybar)
+- Editor - [**`Vscode`**](https://vscode.com/)
 - Terminal - [**`Foot`**](https://codeberg.org/dnkl/foot)
 - Shell - [**`Fish`**](https://fishshell.com/)
 - Promt - [**`Starship`**](https://starship.rs/)
@@ -88,14 +87,13 @@
 
 # Files to audit
 
-- [ ] ./flake.nix
-  - [ ] look into sops
-  - [ ] Does my nushell stuff go here?
-  - [ ] how does this interact with ./parts????
 - [ ] ./system
   - [ ] ./machine/macbox/default.nix
   - [ ] ./modules
     - [ ] what should I touch here????
+    - [ ] ./variables/default.nix
+    - [ ] ./users/default.nix
+      - [ ] change shell
   - [ ] ./default.nix
     - [ ] look into nur
     - [ ] look into home-manager setup I really like the way it was done in the other template
@@ -112,10 +110,22 @@
   - [ ] ./treefmt/default.nix
     - [ ] Look into configuration
   - [x] ./default.nix
-- [ ] ./overlays
 - [ ] ./modules
+  - [ ] ./stylix/default.nix
+    - [ ] Configure Stylix
+    - [ ] does stylix work on mac???
+  - [x] ./nix
+  - [x] ./default.nix
 - [ ] ./home
+- [x] ./flake.nix
+- [x] ./overlays
 - [x] ./pkgs
 - [x] ./templates
 - [x] ./lib
 - [x] ./hosts.nix
+
+# Review
+
+- [ ] System
+- [ ] modules
+- [ ] home
