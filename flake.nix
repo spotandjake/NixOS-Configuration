@@ -1,5 +1,5 @@
 {
-  description = "MaxMur Flake";
+  description = "Spotandjake Flake";
 
   inputs = {
     # Official NixOS repo
