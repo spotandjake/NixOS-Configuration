@@ -6,12 +6,15 @@
       meta.description = "DevShell for Flake";
 
       # Env
+      # TODO: Switch to vscode
       EDITOR = "${pkgs.helix}/bin/hx";
 
+      # TODO: nushell
       shellHook = ''
         exec fish
       '';
 
+      # TODO: Customize packages to my liking
       packages = with pkgs; [
         yazi
         git

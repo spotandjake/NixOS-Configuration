@@ -53,10 +53,6 @@
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     };
 
-    nix-topology = {
-      url = "github:oddlama/nix-topology";
-    };
-
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -67,28 +63,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hyprland ecosystem
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=c5feee1e357f3c3c59ebe406630601c627807963";
-    };
-
-    xdghypr = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland/v1.3.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Unoficial users flakes
-    yandex-music = {
-      url = "github:cucumber-sp/yandex-music-linux";
-    };
-
-    any-nix-shell = {
-      url = "github:TheMaxMur/any-nix-shell";
-    };
-
-    cryptopro = {
-      url = "github:SomeoneSerge/pkgs";
-    };
+    # Unofficial users flakes
 
     # Security
     sops-nix = {
@@ -100,36 +75,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Zsh plugins
-    powerlevel10k = {
-      url = "github:romkatv/powerlevel10k";
-      flake = false;
-    };
-
-    zsh-autosuggestions = {
-      url = "github:zsh-users/zsh-autosuggestions";
-      flake = false;
-    };
-
-    zsh-syntax-highlighting = {
-      url = "github:zsh-users/zsh-syntax-highlighting";
-      flake = false;
-    };
-
-    fzf-zsh-completions = {
-      url = "github:chitoku-k/fzf-zsh-completions";
-      flake = false;
-    };
-
-    zsh-history-substring-search = {
-      url = "github:zsh-users/zsh-history-substring-search";
-      flake = false;
-    };
-
-    zsh-auto-notify = {
-      url = "github:MichaelAquilina/zsh-auto-notify";
-      flake = false;
-    };
+    # TODO: Nushell configuration
   };
 
   outputs = { self, flake-parts, ... } @ inputs:
@@ -137,7 +83,7 @@
     # Description of hosts
     hosts = import ./hosts.nix; 
 
-    # Import helper funcfions
+    # Import helper functions
     libx = import ./lib { inherit self inputs; };
   in flake-parts.lib.mkFlake { inherit inputs; } {
     systems = libx.forAllSystems;

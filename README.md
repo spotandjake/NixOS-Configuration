@@ -15,7 +15,6 @@
 - [✨ Features](#-features)
 - [📁 File structure](#-file-structure)
 - [📘 Software](#-software)
-- [👀 Network topology](#-network-topology)
 - [🖥️ Hosts description](#️-hosts-description)
 
 ## ✨ Features
@@ -53,6 +52,8 @@
 
 ## 📘 Software
 
+<!-- TODO: Correct this -->
+
 - OS - [**`NixOS`**](https://nixos.org/)
 - Theme - [**`Nord`**](https://github.com/nordtheme/nord)
 - Wallpapers - [**`Grey wave`**](assets/grey_gradient.png)
@@ -62,14 +63,6 @@
 - Shell - [**`Fish`**](https://fishshell.com/)
 - Promt - [**`Starship`**](https://starship.rs/)
 - Filemanager - [**`Yazi`**](https://github.com/sxyazi/yazi)
-
-## 👀 Network topology
-
-These diagrams show the network topology of my home network.
-
-![main.svg](assets/network/main.svg)
-
-![network.svg](assets/network/network.svg)
 
 ## 🖥️ Hosts description
 
@@ -91,12 +84,16 @@ These diagrams show the network topology of my home network.
 
 # Files to audit
 
+- [x] ./hosts.nix
 - [ ] ./flake.nix
+  - [ ] look into sops
+  - [ ] Does my nushell stuff go here?
+  - [ ] how does this interact with ./parts????
 - [x] ./templates
 - [ ] ./system
 - [ ] ./pkgs
 - [ ] ./parts
 - [ ] ./overlays
 - [ ] ./modules
-- [ ] ./lib
+- [x] ./lib
 - [ ] ./home

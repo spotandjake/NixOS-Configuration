@@ -18,17 +18,12 @@ let
     , platform ? "x86_64-linux" 
     , hostname ? machineDir
     , isWorkstation ? false
-    , wm ? null
     }:
     let
       machineConfigurationPath      = "${self}/system/machine/${machineDir}";
       machineConfigurationPathExist = builtins.pathExists machineConfigurationPath;
       machineModulesPath            = "${self}/system/machine/${machineDir}/modules";
       machineModulesPathExist       = builtins.pathExists machineModulesPath;
-
-      swayEnable     = wm == "sway";
-      hyprlandEnable = wm == "hyprland";
-      wmEnable       = hyprlandEnable || swayEnable;
     in inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit 
@@ -40,17 +35,13 @@ let
           platform
           machineDir
           isWorkstation
-          wm
           homeModules
           commonModules
           systemModules
           machineConfigurationPath
           machineConfigurationPathExist
           machineModulesPath
-          machineModulesPathExist
-          hyprlandEnable
-          swayEnable
-          wmEnable;
+          machineModulesPathExist;
       };
 
       modules = [
