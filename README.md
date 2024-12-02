@@ -81,19 +81,41 @@
 - [ ] Remove hyperland stuff
 - [ ] Remove other desktop stuff
 - [ ] Remove sway stuff
+- [ ] Setup custom cache with cachix
+- [ ] Look into yaml2nix
+- [ ] Check other obsidian configs
+- [ ] Figure out a way to setup defaults for treefmt
 
 # Files to audit
 
-- [x] ./hosts.nix
 - [ ] ./flake.nix
   - [ ] look into sops
   - [ ] Does my nushell stuff go here?
   - [ ] how does this interact with ./parts????
-- [x] ./templates
 - [ ] ./system
-- [ ] ./pkgs
+  - [ ] ./machine/macbox/default.nix
+  - [ ] ./modules
+    - [ ] what should I touch here????
+  - [ ] ./default.nix
+    - [ ] look into nur
+    - [ ] look into home-manager setup I really like the way it was done in the other template
+    - [ ] look into stylix
+    - [ ] look into imperance
+    - [ ] look into disko
+    - [ ] look into chaotic
+    - [ ] look into nur
 - [ ] ./parts
+  - [ ] ./devshell/default.nix
+    - [ ] switch to nushell
+    - [ ] curate packages
+    - [ ] setup to my liking
+  - [ ] ./treefmt/default.nix
+    - [ ] Look into configuration
+  - [x] ./default.nix
 - [ ] ./overlays
 - [ ] ./modules
-- [x] ./lib
 - [ ] ./home
+- [x] ./pkgs
+- [x] ./templates
+- [x] ./lib
+- [x] ./hosts.nix

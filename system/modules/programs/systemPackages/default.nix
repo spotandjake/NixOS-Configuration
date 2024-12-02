@@ -44,7 +44,6 @@ in {
       ltrace
       lsof
       sysstat
-      cpufetch
       sbctl
 
       # Network

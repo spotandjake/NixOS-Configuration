@@ -4,9 +4,11 @@
 }: 
 
 {
+  # TODO: Add my packages
+  # TODO: Audit the packages here
+  # TODO: Is this where my darwin configs go????
   environment.systemPackages = with pkgs; [ 
     vim
-    neovim
     home-manager
     nerdfonts
     alacritty
