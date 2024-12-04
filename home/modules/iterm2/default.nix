@@ -5,17 +5,17 @@
 }:
 
 with lib;
-# TODO: Any setup
 let
-  cfg = config.module.obsidian;
+  cfg = config.module.iterm2;
 in {
+  # TODO: Configurations
   options = {
-    module.obsidian.enable = mkEnableOption "Enables obsidian";
+    module.iterm2.enable = mkEnableOption "Enables iterm2";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      obsidian
+      iterm2
     ];
   };
 }

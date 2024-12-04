@@ -18,6 +18,9 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+    };
     # MacOS configuration
     darwin = {
       url = "github:LnL7/nix-darwin/master";
@@ -27,16 +30,23 @@
     sops-nix.url = "github:Mic92/sops-nix";
   };
   # Nix Script
-  outputs = { self, flake-parts, nixpkgs, ... } @ inputs:
+  outputs =
+    {
+      self,
+      flake-parts,
+      nixpkgs,
+      ...
+    }@inputs:
     let
-      config = import ./config.nix { inherit inputs; lib = nixpkgs.lib; };
+      config = import ./config.nix;
       # Import The Generator library
       gen = import ./lib { inherit self inputs; };
-    in flake-parts.lib.mkFlake { inherit inputs; } {
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
       # Generate The Parts
       systems = gen.forAllSystems;
       # Load Nix Parts Scripts
-      imports = [./parts];
+      imports = [ ./parts ];
       # Generate The Hosts
       flake = {
         # Operating System Configurations

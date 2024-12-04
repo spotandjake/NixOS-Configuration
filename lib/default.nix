@@ -3,7 +3,6 @@
   let
     # Resource Paths
     homeConfiguration   = "${self}/home";
-    systemConfiguration = "${self}/system";
 
     homeModules         = "${homeConfiguration}/modules";
     commonModules       = "${self}/modules";
@@ -11,19 +10,18 @@
     mkConfig = { config, systemConfig }:
       let
         userConfig = config.users.${systemConfig.username};
-        system = systemConfig.system;
+        inherit (systemConfig) system;
         configList = userConfig.${system} ++ userConfig.shared;
       in
         {
-          username = systemConfig.username;
-          platform = systemConfig.platform;
-          system = system;
-          stateVersion = systemConfig.stateVersion;
-          configuration = (inputs.nixpkgs.lib.lists.foldl
+          inherit (systemConfig) username;
+          inherit (systemConfig) platform;
+          inherit system;
+          inherit (systemConfig) stateVersion;
+          configuration = inputs.nixpkgs.lib.lists.foldl
               (acc: value: inputs.nixpkgs.lib.recursiveUpdate acc value)
               {}
-              configList
-            );
+              configList;
         };
     # Helper function for generating a host configuration
     mkHostHelp = { config, systemConfig}:
@@ -72,13 +70,13 @@
     mkHost = { config, system }:
       # Filter out the systems to only include the current system
       let
-        currentSystems = (inputs.nixpkgs.lib.filterAttrs (_: s: s.system == system) config.systems);
+        currentSystems = inputs.nixpkgs.lib.filterAttrs (_: s: s.system == system) config.systems;
       in 
-        builtins.mapAttrs (key: systemConfig: mkHostHelp { inherit config systemConfig; }) currentSystems;
+        builtins.mapAttrs (_key: systemConfig: mkHostHelp { inherit config systemConfig; }) currentSystems;
   in {
     # Setup the flakes passed for each system
     forAllSystems = inputs.nixpkgs.lib.systems.flakeExposed;
 
     # This is just a function that takes the config and the system and generates all hosts for the system
-    mkHost = mkHost;
+    inherit mkHost;
   }

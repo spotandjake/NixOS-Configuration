@@ -60,7 +60,7 @@ if (false in (ls -l `/nix/var/nix`| where type == dir | where name == "/nix/var/
 # version = 0.83.2
 
 def in_git_repo [] {
-  (do --ignore-errors { git branch --show-current } | is-empty) == false
+  '.git' | path exists
 }
 
 def create_left_prompt [] {
@@ -140,8 +140,8 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-$env.PATH = ($env.PATH | append "/opt/homebrew/bin")
-$env.PATH = ($env.PATH | append "/opt/homebrew/bin/fnm")
+# $env.PATH = ($env.PATH | append "/opt/homebrew/bin")
+# $env.PATH = ($env.PATH | append "/opt/homebrew/bin/fnm")
 $env.PATH = ($env.PATH | prepend "/Users/spotandjake/Library/Caches/fnm_multishells/3219_1677859702535/bin")
 
 $env.PATH = ($env.PATH | append "/usr/local/bin/zed")

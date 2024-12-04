@@ -11,7 +11,7 @@ let
   inherit (pkgs.stdenv) isDarwin;
   inherit (pkgs.stdenv) isLinux;
   
-  username = userConfig.username;
+  inherit (userConfig) username;
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 in {
   users.users.${username}.home = homeDirectory;
