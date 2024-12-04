@@ -93,27 +93,35 @@
   "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": true,
   "csharp.inlayHints.enableInlayHintsForTypes": true,
   "makefile.configureOnOpen": true,
-  "gitlens.views.commitDetails.files.layout": "tree",
-  "gitlens.codeLens.scopes": ["document", "containers", "blocks"],
-  "gitlens.graph.layout": "editor",
-  "gitlens.views.repositories.showIncomingActivity": true,
   "ocaml.server.syntaxDocumentation": true,
-  "javascript.format.semicolons": "insert",
-  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "javascript.inlayHints.enumMemberValues.enabled": true,
-  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-  "javascript.inlayHints.parameterTypes.enabled": true,
-  "javascript.inlayHints.variableTypes.enabled": true,
-  "typescript.format.semicolons": "insert",
-  "typescript.inlayHints.enumMemberValues.enabled": true,
-  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "typescript.inlayHints.parameterTypes.enabled": true,
-  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "gitlens": {
+    "views.commitDetails.files.layout": "tree",
+    "codeLens.scopes": ["document", "containers", "blocks"],
+    "graph.layout": "editor",
+    "views.repositories.showIncomingActivity": true
+  },
+  "javascript": {
+    "format.semicolons": "insert",
+    "inlayHints.functionLikeReturnTypes.enabled": true,
+    "inlayHints.enumMemberValues.enabled": true,
+    "inlayHints.propertyDeclarationTypes.enabled": true,
+    "inlayHints.parameterTypes.enabled": true,
+    "inlayHints.variableTypes.enabled": true
+  },
+  "typescript": {
+    "format.semicolons": "insert",
+    "inlayHints.enumMemberValues.enabled": true,
+    "inlayHints.functionLikeReturnTypes.enabled": true,
+    "inlayHints.parameterTypes.enabled": true,
+    "inlayHints.propertyDeclarationTypes.enabled": true
+  },
   "zenMode.hideLineNumbers": false,
   "[rust]": {
     "editor.defaultFormatter": "rust-lang.rust-analyzer"
   },
   "github.copilot.chat.temporalContext.enabled": true,
   "workbench.colorTheme": "replt.it",
-  "cSpell.useCustomDecorations": false
+  "cSpell.useCustomDecorations": false,
+  "comments.openView": "never",
+  "comments.visible": false
 }
