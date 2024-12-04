@@ -1,18 +1,13 @@
-{ lib
-, config
+{ config
+, loader
 , homeModules
 , ...
-}:
-
-with lib;
-let
-  cfg = config.module.nushell;
-in {
-  options = {
-    module.nushell.enable = mkEnableOption "Enables nushell";
-  };
-
-  config = mkIf cfg.enable {
+}: loader.mkProgram {
+  inherit config;
+  # TODO: Add Configuration Files
+  name = "nushell";
+  options = {};
+  setup = {
     programs.nushell = {
       enable = true;
       configFile.source = "${homeModules}/nushell/config.nu";

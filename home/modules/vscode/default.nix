@@ -1,17 +1,11 @@
-{ lib
-, config
+{ config
+, loader
 , ...
-}:
-
-with lib;
-let
-  cfg = config.module.vscode;
-in {
-  options = {
-    module.vscode.enable = mkEnableOption "Enables vscode";
-  };
-
-  config = mkIf cfg.enable {
+}: loader.mkProgram {
+  inherit config;
+  name = "vscode";
+  options = {};
+  setup = {
     programs.vscode = {
       enable = true;
       enableUpdateCheck = true;

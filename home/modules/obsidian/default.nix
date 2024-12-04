@@ -1,21 +1,13 @@
-{ lib
-, config
+{ config
 , pkgs
+, loader
 , ...
-}:
-
-with lib;
-# TODO: Any setup
-let
-  cfg = config.module.obsidian;
-in {
-  options = {
-    module.obsidian.enable = mkEnableOption "Enables obsidian";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      obsidian
-    ];
+}: loader.mkProgram {
+  inherit config;
+  # TODO: Add Configuration Files
+  name = "obsidian";
+  options = {};
+  setup = {
+    home.packages = [ pkgs.obsidian ];
   };
 }

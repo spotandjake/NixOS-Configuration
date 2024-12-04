@@ -1,21 +1,12 @@
-{ lib
-, config
+{ config
 , pkgs
+, loader
 , ...
-}:
-
-with lib;
-# TODO: Authentication
-let
-  cfg = config.module.spotify;
-in {
-  options = {
-    module.spotify.enable = mkEnableOption "Enables spotify";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      spotify
-    ];
+}: loader.mkProgram {
+  inherit config;
+  name = "spotify";
+  options = {};
+  setup = {
+    home.packages = [ pkgs.spotify ];
   };
 }

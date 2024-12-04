@@ -1,17 +1,11 @@
-{ lib
-, config
+{ config
+, loader
 , ...
-}:
-
-with lib;
-let
-  cfg = config.module.yazi;
-in {
-  options = {
-    module.yazi.enable = mkEnableOption "Enables yazi";
-  };
-
-  config = mkIf cfg.enable {
+}: loader.mkProgram {
+  inherit config;
+  name = "yazi";
+  options = {};
+  setup = {
     programs.yazi = {
       enable = true;
       # This is off because it causes an issue in our env.nu

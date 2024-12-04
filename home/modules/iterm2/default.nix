@@ -1,21 +1,13 @@
-{ lib
-, config
+{ config
 , pkgs
+, loader
 , ...
-}:
-
-with lib;
-let
-  cfg = config.module.iterm2;
-in {
-  # TODO: Configurations
-  options = {
-    module.iterm2.enable = mkEnableOption "Enables iterm2";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      iterm2
-    ];
+}: loader.mkProgram {
+  inherit config;
+  # TODO: Add Configuration Files
+  name = "iterm2";
+  options = {};
+  setup = {
+    home.packages = [ pkgs.iterm2 ];
   };
 }

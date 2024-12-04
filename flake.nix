@@ -34,7 +34,6 @@
     {
       self,
       flake-parts,
-      nixpkgs,
       ...
     }@inputs:
     let

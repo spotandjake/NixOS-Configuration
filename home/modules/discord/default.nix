@@ -1,21 +1,13 @@
-{ lib
-, config
+{ config
 , pkgs
+, loader
 , ...
-}:
-
-with lib;
-# TODO: Authentication
-let
-  cfg = config.module.discord;
-in {
-  options = {
-    module.discord.enable = mkEnableOption "Enables discord";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      discord
-    ];
+}: loader.mkProgram {
+  inherit config;
+  # TODO: Add Configuration Files
+  name = "discord";
+  options = {};
+  setup = {
+    home.packages = [ pkgs.discord ];
   };
 }

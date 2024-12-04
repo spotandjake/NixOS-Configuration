@@ -13,6 +13,21 @@ let
   
   inherit (userConfig) username;
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+  # Custom Module System Macros
+  loader = {
+    mkProgram = {
+      config,
+      name,
+      options ? {},
+      setup
+    }:
+    {
+      options = options // {
+        module.${name}.enable = lib.mkEnableOption "Enables ${name}";
+      };
+      config = lib.mkIf config.module.${name}.enable setup;
+    };
+  };
 in {
   users.users.${username}.home = homeDirectory;
   home-manager = {
@@ -28,7 +43,8 @@ in {
         isLinux
         isDarwin
         commonModules 
-        homeModules;
+        homeModules
+        loader;
     };
 
     users.${username} = {
