@@ -1,0 +1,119 @@
+{
+  "editor.suggestSelection": "first",
+  "editor.renderWhitespace": "all",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.linkedEditing": true,
+  "editor.tabSize": 2,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.accessibilitySupport": "off",
+  "editor.tokenColorCustomizations": null,
+  "editor.semanticTokenColorCustomizations": null,
+  "editor.inlineSuggest.enabled": true,
+  "editor.wordWrap": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.formatOnSave": true,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "files.autoSave": "onFocusChange",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "git.autofetch": true,
+  "workbench.startupEditor": "none",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "cSpell.userWords": [],
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "yaml": false,
+    "typescript": true,
+    "javascript": true,
+    "grain": true
+  },
+  "files.associations": {
+    "*.br": "brisk"
+  },
+  "grain.cliPath": "/Users/spotandjake/Library/Caches/fnm_multishells/3219_1677859702535/bin/grain",
+  "javascript.suggest.autoImports": false,
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.suggest.autoImports": false,
+  "csharp.suppressDotnetInstallWarning": true,
+  "go.toolsManagement.autoUpdate": true,
+  "importCost.typescriptExtensions": ["\\.tsx?$"],
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[reason]": {
+    "editor.defaultFormatter": "ocamllabs.ocaml-platform"
+  },
+  "[grain]": {
+    "editor.defaultFormatter": "grain-lang.vscode-grain",
+    "files.trimTrailingWhitespace": true
+  },
+  "terminal.external.osxExec": "/opt/homebrew/bin/nu",
+  "window.commandCenter": true,
+  "lldb.library": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/LLDB",
+  "diffEditor.maxComputationTime": 0,
+  "workbench.editor.enablePreview": false,
+  "grain.trace.server": "messages",
+  "window.zoomLevel": 1,
+  "accessibility.signals.terminalBell": {
+    "sound": "on"
+  },
+  "terminal.integrated.enableVisualBell": true,
+  "prettier.singleQuote": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "scss.lint.unknownAtRules": "ignore",
+  "terminal.integrated.enableImages": true,
+  "terminal.integrated.defaultProfile.osx": "Nushell",
+  "editor.cursorStyle": "line-thin",
+  "csharp.inlayHints.enableInlayHintsForImplicitObjectCreation": true,
+  "csharp.inlayHints.enableInlayHintsForImplicitVariableTypes": true,
+  "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": true,
+  "csharp.inlayHints.enableInlayHintsForTypes": true,
+  "makefile.configureOnOpen": true,
+  "gitlens.views.commitDetails.files.layout": "tree",
+  "gitlens.codeLens.scopes": ["document", "containers", "blocks"],
+  "gitlens.graph.layout": "editor",
+  "gitlens.views.repositories.showIncomingActivity": true,
+  "ocaml.server.syntaxDocumentation": true,
+  "javascript.format.semicolons": "insert",
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.enumMemberValues.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.inlayHints.parameterTypes.enabled": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "typescript.format.semicolons": "insert",
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "zenMode.hideLineNumbers": false,
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+  "github.copilot.chat.temporalContext.enabled": true,
+  "workbench.colorTheme": "replt.it",
+  "cSpell.useCustomDecorations": false
+}
