@@ -1,0 +1,17 @@
+# This is a backup of my old git config
+[commit]
+	gpgSign = true
+[tag]
+	forceSignAnnotated = true
+[gpg]
+	program = /opt/homebrew/bin/gpg
+[core]
+	editor = vim
+[credential]
+	helper = manager
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[safe]
+	directory = /etc/nixos

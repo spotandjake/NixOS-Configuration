@@ -2,7 +2,7 @@ let
   sharedMinDev = [
     {
       module.program.nushell.enable = true;
-      # programs.git.enable = true;
+      module.program.git.enable = true;
     }
   ];
   sharedDevShell = [
