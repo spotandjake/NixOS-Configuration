@@ -1,4 +1,4 @@
-{ config, lib, systemConfig, ... }:
+{ config, lib, systemConfig, userConfig, ... }:
 
 let
   name = "darwin";
@@ -19,5 +19,6 @@ in {
       extra-platforms = x86_64-darwin aarch64-darwin
     '';
     nix.linux-builder.enable = true;
+    homebrew = userConfig.homebrew;
   };
 }

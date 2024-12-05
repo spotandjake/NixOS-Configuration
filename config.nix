@@ -27,6 +27,12 @@ in
   # User Specific Configurations
   users = {
     spotandjake = {
+      homebrew = {
+        enable = true;
+        casks = [
+          "lunar"
+        ];
+      };
       darwin = [
         {
           module.program.raycast.enable = true;

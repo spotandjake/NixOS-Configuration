@@ -1,5 +1,5 @@
 # This script generates the required nix expressions from the config settings.
-{ self, inputs }:
+{ self, inputs, lib }:
   let
     utils = import ./utils.nix;
     # Resource Paths
@@ -7,20 +7,19 @@
     homeModules         = "${homeConfiguration}/modules";
     commonModules       = "${self}/modules";
     # Helper function for generating a single config
-    mkConfig = { config, systemConfig }:
+    # Helper function for generating a host configuration
+    mkHost = { config, systemConfig}:
       let
-        userConfig = config.users.${systemConfig.username};
-      in
-        {
+        user = config.users.${systemConfig.username};
+        userConfig = {
           inherit (systemConfig) username;
           inherit (systemConfig) platform;
           inherit (systemConfig) stateVersion;
-          configurations = userConfig.${utils.getPlatform systemConfig.platform} ++ userConfig.shared;
+          homebrew = user.homebrew;
+          configurations =
+            user.${utils.getPlatform systemConfig.platform} ++
+            user.shared;
         };
-    # Helper function for generating a host configuration
-    mkHostHelp = { config, systemConfig}:
-      let
-        userConfig = mkConfig { inherit config systemConfig; };
         modules = [
           {
             module.nix-config.enable = true;
@@ -46,21 +45,22 @@
             modules = [ inputs.home-manager.darwinModules.home-manager ] ++ modules;
           }
         else
-          inputs.nixpkgs.lib.nixosSystem {
+          lib.nixosSystem {
             inherit specialArgs;
             modules = [ inputs.home-manager.nixosModules.home-manager ] ++ modules;
           };
-    # Helper function for generating darwin host configs
-    mkHost = { config, system }:
-      # Filter out the systems to only include the current system
-      let
-        currentSystems = inputs.nixpkgs.lib.filterAttrs (_: s: utils.isPlatform s.platform system) config.systems;
-      in 
-        builtins.mapAttrs (_key: systemConfig: mkHostHelp { inherit config systemConfig; }) currentSystems;
   in {
     # Setup the flakes passed for each system
-    forAllSystems = inputs.nixpkgs.lib.systems.flakeExposed;
-
-    # This is just a function that takes the config and the system and generates all hosts for the system
-    inherit mkHost;
+    forAllSystems = lib.systems.flakeExposed;
+    # Generate all hosts for a given platform
+    mkHosts = { config, platform }:
+      # Filter out the systems to only include the current system
+      let
+        platformSystems = (
+          lib.filterAttrs
+            (_: s: utils.isPlatform s.platform platform)
+            config.systems
+        );
+      in 
+        builtins.mapAttrs (_key: systemConfig: mkHost { inherit config systemConfig; }) platformSystems;
   }

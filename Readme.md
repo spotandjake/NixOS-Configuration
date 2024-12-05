@@ -1,9 +1,6 @@
-- Setup nix parts
+# Readme
 
-# Guides
-
-https://nixcademy.com/posts/nix-on-macos/
-https://github.com/spotandjake/NixOS-Configuration/blob/main/lib/default.nix
+This repository is home to my personal nix configurations for my machines, it is currently still a work in progress and I am still quite new to nix itself, while I tried to build a system based off others I would not necessarily recommend using this as an example just yet.
 
 # Steps left
 
@@ -37,8 +34,6 @@ https://github.com/spotandjake/NixOS-Configuration/blob/main/lib/default.nix
       - [ ] are there any settings?
     - [ ] office
   - [ ] darwin
-    - [ ] luna
-      - [ ] through homebrew
     - [ ] raycast
       - [x] Install
       - [ ] how to handle configuration?
@@ -58,7 +53,6 @@ https://github.com/spotandjake/NixOS-Configuration/blob/main/lib/default.nix
     - [ ] keybinds
     - [ ] other settings??? (Is there anyway i can get a list of the changes)
   - [ ] set the commit reference
-- [ ] Figure out homebrew management
 - [ ] Commands for adding new items to nix
   - Nix might have tools already or we could probably make a manager for our nix configs
   - add new app
@@ -75,5 +69,8 @@ https://github.com/spotandjake/NixOS-Configuration/blob/main/lib/default.nix
 - [ ] cleanup all my configurations
   - [ ] I should go through all my configurations and make sure they are how i like them
 - [ ] figure out i want to backup my regular files
-- [ ] simplify my module system
 - [ ] Reset mac
+- I think I can make a better module system
+  - home-manager is being annoying
+  - how to load homebrew casks like others?
+  - read up on nix module system

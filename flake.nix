@@ -34,12 +34,13 @@
     {
       self,
       flake-parts,
+      nixpkgs,
       ...
     }@inputs:
     let
       config = import ./config.nix;
       # Import The Generator library
-      gen = import ./lib { inherit self inputs; };
+      gen = import ./lib { inherit self inputs; inherit (nixpkgs) lib; };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       # Generate The Parts
@@ -49,13 +50,13 @@
       # Generate The Hosts
       flake = {
         # Operating System Configurations
-        nixosConfigurations = gen.mkHost {
+        nixosConfigurations = gen.mkHosts {
           inherit config;
-          system = "nixos";
+          platform = "nixos";
         };
-        darwinConfigurations = gen.mkHost {
+        darwinConfigurations = gen.mkHosts {
           inherit config;
-          system = "darwin";
+          platform = "darwin";
         };
         # Flake Templates
         templates = import "${self}/templates" { inherit self; };

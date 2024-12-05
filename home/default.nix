@@ -4,12 +4,10 @@
 , inputs
 , userConfig
 , homeModules
-, commonModules
 , ...
 }:
 let
   inherit (pkgs.stdenv) isDarwin;
-  inherit (pkgs.stdenv) isLinux;
   
   inherit (userConfig) username;
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
