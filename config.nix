@@ -1,25 +1,35 @@
 let
   sharedMinDev = [
     {
-      module.program.nushell.enable = true;
-      module.program.git.enable = true;
+      module = {
+        program = {
+          nushell.enable = true;
+          git.enable = true;
+        };
+      };
     }
   ];
   sharedDevShell = [
     {
-      # programs
-      module.program.vscode.enable = true;
-      module.program.gitkraken.enable = true;
-      module.program.yazi.enable = true;
+      module = {
+        program = {
+          vscode.enable = true;
+          gitkraken.enable = true;
+          yazi.enable = true;
+        };
+      };
     }
   ];
   sharedWorkStation = [
     {
-      # General
-      module.program.arc-browser.enable = true;
-      module.program.discord.enable = true;
-      module.program.spotify.enable = true;
-      module.program.obsidian.enable = true;
+      module = {
+        program = {
+          arc-browser.enable = true;
+          discord.enable = true;
+          spotify.enable = true;
+          obsidian.enable = true;
+        };
+      };
     }
   ];
 in
@@ -33,10 +43,15 @@ in
           "lunar"
         ];
       };
+      # Mac Specific Configuration
       darwin = [
         {
-          module.program.raycast.enable = true;
-          module.program.iterm2.enable = true;
+          module = {
+            program = {
+              raycast.enable = true;
+              iterm2.enable = true;
+            };
+          };
         }
       ];
       shared = sharedDevShell ++ sharedMinDev ++ sharedWorkStation;

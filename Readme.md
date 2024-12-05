@@ -78,7 +78,6 @@ This repository is not fully setup and the parts that are, are still a little ne
     - Keybindings
     - Anything else I have changed
       - I don't know if there is a good way to see this
-    - Understand Nix-Darwin commit reference?
   - Visual Studio Code
     - Cleanup User Settings
     - Move User Settings into Nix
@@ -92,7 +91,6 @@ This repository is not fully setup and the parts that are, are still a little ne
     - I think these settings exist in `spotandjake/.iterm2`
     - Try to make a home manager module and upstream
 - Research
-  - Understand Nix Overlays from Inspiration
   - Secrets
     - Do I just use a password manager?
     - Git Signing Keys
@@ -109,9 +107,6 @@ This repository is not fully setup and the parts that are, are still a little ne
     - minecraft world
     - desktop?
 - General
-  - Add a License
-    - Look into nix licensing rules
-    - Check nixos-logo license
   - Reset my Mac to this
 - Cleanup
   - This is my first real Nix setup and I did some things in a non favorite way below is a list of cleanup.

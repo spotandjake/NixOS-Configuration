@@ -25,6 +25,7 @@
             module.nix-config.enable = true;
             module.darwin.enable = utils.isPlatform systemConfig.platform "darwin";
           }
+          "${self}/overlays/nixpkgs"
           "${commonModules}"
           "${homeConfiguration}"
         ];
