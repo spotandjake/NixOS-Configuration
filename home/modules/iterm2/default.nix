@@ -1,8 +1,8 @@
 { config
 , pkgs
-, loader
+, mkProgram
 , ...
-}: loader.mkProgram {
+}: mkProgram {
   inherit config;
   # TODO: Add Configuration Files
   name = "iterm2";

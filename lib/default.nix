@@ -1,27 +1,21 @@
 # This script generates the required nix expressions from the config settings.
 { self, inputs }:
   let
+    utils = import ./utils.nix;
     # Resource Paths
     homeConfiguration   = "${self}/home";
-
     homeModules         = "${homeConfiguration}/modules";
     commonModules       = "${self}/modules";
     # Helper function for generating a single config
     mkConfig = { config, systemConfig }:
       let
         userConfig = config.users.${systemConfig.username};
-        inherit (systemConfig) system;
-        configList = userConfig.${system} ++ userConfig.shared;
       in
         {
           inherit (systemConfig) username;
           inherit (systemConfig) platform;
-          inherit system;
           inherit (systemConfig) stateVersion;
-          configuration = inputs.nixpkgs.lib.lists.foldl
-              (acc: value: inputs.nixpkgs.lib.recursiveUpdate acc value)
-              {}
-              configList;
+          configurations = userConfig.${utils.getPlatform systemConfig.platform} ++ userConfig.shared;
         };
     # Helper function for generating a host configuration
     mkHostHelp = { config, systemConfig}:
@@ -30,33 +24,23 @@
         modules = [
           {
             module.nix-config.enable = true;
-            programs.zsh.enable = true;
-            security.pam.enableSudoTouchIdAuth = true; # Enable fingerprint sudo
-            system.stateVersion = systemConfig.stateVersion;
-            system.activationScripts.postUserActivation.text = ''
-              # Following line should allow us to avoid a logout/login cycle
-              /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-            '';
-            nix.extraOptions = inputs.nixpkgs.lib.optionalString (systemConfig.platform == "aarch64-darwin") ''
-              extra-platforms = x86_64-darwin aarch64-darwin
-            '';
-            nix.linux-builder.enable = true;
+            module.darwin.enable = utils.isPlatform systemConfig.platform "darwin";
           }
           "${commonModules}"
           "${homeConfiguration}"
         ];
         specialArgs = {
-          # TODO: Look into requirements for this???
           inherit 
             inputs
             self
+            systemConfig
             userConfig
             homeModules
             commonModules;
         };
       in
         # Collect Modules
-        if systemConfig.system == "darwin" then
+        if utils.isPlatform systemConfig.platform "darwin" then
           inputs.darwin.lib.darwinSystem {
             inherit specialArgs;
             modules = [ inputs.home-manager.darwinModules.home-manager ] ++ modules;
@@ -70,7 +54,7 @@
     mkHost = { config, system }:
       # Filter out the systems to only include the current system
       let
-        currentSystems = inputs.nixpkgs.lib.filterAttrs (_: s: s.system == system) config.systems;
+        currentSystems = inputs.nixpkgs.lib.filterAttrs (_: s: utils.isPlatform s.platform system) config.systems;
       in 
         builtins.mapAttrs (_key: systemConfig: mkHostHelp { inherit config systemConfig; }) currentSystems;
   in {

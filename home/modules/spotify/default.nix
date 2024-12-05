@@ -1,8 +1,8 @@
 { config
 , pkgs
-, loader
+, mkProgram
 , ...
-}: loader.mkProgram {
+}: mkProgram {
   inherit config;
   name = "spotify";
   options = {};

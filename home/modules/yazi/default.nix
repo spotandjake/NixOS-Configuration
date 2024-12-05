@@ -1,7 +1,7 @@
 { config
-, loader
+, mkProgram
 , ...
-}: loader.mkProgram {
+}: mkProgram {
   inherit config;
   name = "yazi";
   options = {};

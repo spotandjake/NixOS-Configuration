@@ -1,8 +1,8 @@
 { config
-, loader
+, mkProgram
 , homeModules
 , ...
-}: loader.mkProgram {
+}: mkProgram {
   inherit config;
   name = "zsh";
   options = {};
