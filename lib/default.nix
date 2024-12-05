@@ -15,7 +15,7 @@
           inherit (systemConfig) username;
           inherit (systemConfig) platform;
           inherit (systemConfig) stateVersion;
-          homebrew = user.homebrew;
+          inherit (user) homebrew;
           configurations =
             user.${utils.getPlatform systemConfig.platform} ++
             user.shared;
@@ -56,11 +56,9 @@
     mkHosts = { config, platform }:
       # Filter out the systems to only include the current system
       let
-        platformSystems = (
-          lib.filterAttrs
+        platformSystems = lib.filterAttrs
             (_: s: utils.isPlatform s.platform platform)
-            config.systems
-        );
+            config.systems;
       in 
         builtins.mapAttrs (_key: systemConfig: mkHost { inherit config systemConfig; }) platformSystems;
   }
