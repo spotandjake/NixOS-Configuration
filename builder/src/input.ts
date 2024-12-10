@@ -1,5 +1,5 @@
 import * as path from '@std/path';
-import { ok, err, type Result } from './result.ts';
+import { ok, err, type Result } from './utils.ts';
 import {
   systemsFileSchema,
   userSchema,
@@ -7,6 +7,7 @@ import {
   type Systems,
   type User,
   type Bundle,
+  type Configuration,
 } from './schemas.ts';
 import { parse } from '@std/yaml';
 // Helpers
@@ -35,7 +36,8 @@ const safe_parse = (raw: string): Result<unknown, string> => {
 const get_system_file_path = (input_directory: string) =>
   path.join(input_directory, 'systems.yaml');
 export const read_system_file = async (
-  input_directory: string
+  input_directory: string,
+  users: Map<string, User>
 ): Promise<Result<Systems, string>> => {
   // Read The System File
   const file_path = get_system_file_path(input_directory);
@@ -47,6 +49,14 @@ export const read_system_file = async (
   // Validate The System File
   const { data, error, success } = systemsFileSchema.safeParse(parsed.ok);
   if (success == false) return err(error.message);
+  // Ensure User Exists
+  if (!data.systems.every(({ user }) => users.has(user))) {
+    return data.systems.reduce((acc, { user }) => {
+      if (!users.has(user))
+        return err(`User ${user} does not exist in ${file_path}`);
+      else return acc;
+    }, err<Systems, string>('Unknown User'));
+  }
   return ok(data.systems);
 };
 // TODO Configurations/Secrets.yaml
@@ -54,7 +64,8 @@ export const read_system_file = async (
 const get_user_directory_path = (input_directory: string) =>
   path.join(input_directory, 'users/');
 export const read_user_files = async (
-  input_directory: string
+  input_directory: string,
+  bundles: Map<string, Bundle>
 ): Promise<Result<Map<string, User>, string>> => {
   const directory_path = get_user_directory_path(input_directory);
   // Read The Directory
@@ -76,6 +87,17 @@ export const read_user_files = async (
       if (success == false) return err(error.message);
       // Deduplication
       if (users.has(data.name)) return err(`Duplicate user ${data.name}`);
+      // TODO: Ensure Programs exist
+      // Ensure Bundles Exist
+      if (!data.bundles.every((bundleName) => bundles.has(bundleName))) {
+        return data.bundles.reduce((acc, bundleName) => {
+          if (!bundles.has(bundleName))
+            return err(
+              `Bundle ${bundleName} does not exist in ${user_file_path}`
+            );
+          else return acc;
+        }, err<Map<string, User>, string>('Unknown Bundle'));
+      }
       // Store The File
       users.set(data.name, data);
     }
@@ -113,6 +135,7 @@ export const read_bundle_files = async (
       if (success == false) return err(error.message);
       // Deduplication
       if (bundles.has(data.name)) return err(`Duplicate bundle ${data.name}`);
+      // TODO: Ensure Programs exist
       // Store The File
       bundles.set(data.name, data);
     }
@@ -122,6 +145,24 @@ export const read_bundle_files = async (
   }
 };
 // TODO Configurations/Configs/*.yaml
+// Configurations
+export const get_configurations = async (
+  input_directory: string
+): Promise<Result<Configuration, string>> => {
+  // Get The Inputs
+  const bundles = await read_bundle_files(input_directory);
+  if (bundles.isErr) return bundles;
+  const users = await read_user_files(input_directory, bundles.ok);
+  if (users.isErr) return users;
+  const systems = await read_system_file(input_directory, users.ok);
+  if (systems.isErr) return systems;
+  // Validate The Input Strings With Zod
+  return ok({
+    systems: systems.ok,
+    users: users.ok,
+    bundles: bundles.ok,
+  });
+};
 // Add impermanence to user
 // I want to either be able to write configs in nix or yaml
 // nix module

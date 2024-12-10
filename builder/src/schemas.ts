@@ -1,5 +1,5 @@
 // TODO: Add an import map
-import * as zod from 'https://deno.land/x/zod@v3.24.0/mod.ts';
+import * as zod from '@zod/lib';
 
 export const darwinPlatformsSchema = zod.enum([
   'aarch64-darwin',
@@ -10,6 +10,7 @@ export const platformSchema = zod.union([
   darwinPlatformsSchema,
   linuxPlatformsSchema,
 ]);
+export type PlatformSchema = zod.infer<typeof platformSchema>;
 // Configuration Schema
 export const configurationSchema = zod.strictObject({
   programs: zod.array(zod.string()),
@@ -52,3 +53,10 @@ export const bundleSchema = zod.strictObject({
   sharedPrograms: zod.array(zod.string()),
 });
 export type Bundle = zod.infer<typeof bundleSchema>;
+// Configurations
+export type Configuration = {
+  systems: Systems;
+  users: Map<string, User>;
+  bundles: Map<string, Bundle>;
+  // appConfigurations: AppConfigurations;
+};

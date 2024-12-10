@@ -1,41 +1,7 @@
-// Add Global Commands For Managing Configurations And Rebuilding
-// TODO: Add an import map
-import * as path from '@std/path';
 import { Command } from '@cliffy/command';
-import { ok, Result } from './result.ts';
-import { colors } from '@cliffy/ansi/colors';
-import { type Systems, type User, type Bundle } from './schemas.ts';
-import * as Data from './data.ts';
-const error = colors.red.bold;
-
-const get_directrory_path = (rawDirectory: string, sourceDirectory: string) => {
-  return path.join(sourceDirectory, rawDirectory);
-};
-
-interface Configuration {
-  systems: Systems;
-  users: Map<string, User>;
-  bundles: Map<string, Bundle>;
-  // appConfigurations: AppConfigurations;
-}
-
-const get_input_configuration = async (
-  input_directory: string
-): Promise<Result<Configuration, string>> => {
-  // Get The Inputs
-  const systems = await Data.read_system_file(input_directory);
-  if (systems.isErr) return systems;
-  const users = await Data.read_user_files(input_directory);
-  if (users.isErr) return users;
-  const bundles = await Data.read_bundle_files(input_directory);
-  if (bundles.isErr) return bundles;
-  // Validate The Input Strings With Zod
-  return ok({
-    systems: systems.ok,
-    users: users.ok,
-    bundles: bundles.ok,
-  });
-};
+import { get_dir, error } from './utils.ts';
+import { get_configurations } from './input.ts';
+import { set_configurations } from './output.ts';
 
 await new Command()
   .name('NixOs Configuration Builder')
@@ -49,30 +15,20 @@ await new Command()
   .arguments('<project_directory>')
   .action(async ({ output }, input) => {
     // Get the working and output directory
-    const sourceDirectory = Deno.cwd();
-    const directoryPath = get_directrory_path(input, sourceDirectory);
-    const outputPath = get_directrory_path(output, sourceDirectory);
+    const directoryPath = get_dir(input);
+    const outputPath = get_dir(output);
     // Get The input
-    const configurations = await get_input_configuration(directoryPath);
-    if (configurations.isErr) {
-      console.error(error('[Error]:'), configurations.err);
-      Deno.exit(1);
-    }
-    console.log(configurations.ok);
-    // Deep Validation
-    // - Ensure the users exist
-    // - Ensure the bundles exist
-    // - Ensure the app configurations exist
-    // Map the configs to direct outputs in the nix module system
-    // Write to the output
-    // TODO: Build the output
+    const input_configurations = await get_configurations(directoryPath);
+    if (input_configurations.isErr) return error(input_configurations.err);
+    // Generate The Output
+    const output_configurations = await set_configurations(
+      input_configurations.ok,
+      outputPath
+    );
+    if (output_configurations.isErr) return error(output_configurations.err);
   })
   .parse(Deno.args);
 
-// After we do this we can go to validation
-// - Ensure the users exist
-// - Ensure the bundles exist
-// - Ensure the programs exist
 // Transform into output
 // - preprocess
 //   - for each user
@@ -136,11 +92,3 @@ await new Command()
 //   - prompts for specs
 // - Remove System
 //   - Removes the system from the configuration
-
-// TODO:
-// - deep validation
-//  - resolve bundles
-//  - resolve users
-// - output
-// - yaml programs
-// - nice cli
