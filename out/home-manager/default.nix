@@ -1,0 +1,1 @@
+# Home manager stuff take a look at https://github.com/dustinlyons/nixos-config/blob/8a14e1f0da074b3f9060e8c822164d922bfeec29/modules/darwin/home-manager.nix

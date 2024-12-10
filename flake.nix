@@ -1,64 +1,41 @@
 {
-  description = "Spotandjake Flake";
-  # Nix Sources
+  description = "Spotandjake System Configurations";
+
   inputs = {
-    # Official NixOS repo
+    # Current nixpkgs version
+    nixpkgs.follows = "unstable";
+    # Nix Packages
     master.url = "github:NixOS/nixpkgs/master";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
-    # Current nixpkgs branch
-    nixpkgs.follows = "unstable";
-    # NixOS community
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # impermanence.url = "github:/nix-community/impermanence";
+    # Flake Parts
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-    };
-    # MacOS configuration
+    # System Configurations
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Security
-    sops-nix.url = "github:Mic92/sops-nix";
+    # TODO: Impermanence
+    # Home Configuration
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Tools
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
-  # Nix Script
-  outputs =
-    {
-      self,
-      flake-parts,
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      config = import ./config.nix;
-      # Import The Generator library
-      gen = import ./lib { inherit self inputs; inherit (nixpkgs) lib; };
-    in
+
+  outputs = inputs@{ flake-parts, self, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      # Generate The Parts
-      systems = gen.forAllSystems;
-      # Load Nix Parts Scripts
-      imports = [ ./parts ];
-      # Generate The Hosts
+      # Entry point modules
+      imports = [ ./modules ];
+      # Systems This Configuration Supports
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      # Flake parts Templates
       flake = {
-        # Operating System Configurations
-        nixosConfigurations = gen.mkHosts {
-          inherit config;
-          platform = "nixos";
-        };
-        darwinConfigurations = gen.mkHosts {
-          inherit config;
-          platform = "darwin";
-        };
-        # Flake Templates
         templates = import "${self}/templates" { inherit self; };
       };
     };

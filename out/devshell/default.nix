@@ -1,4 +1,5 @@
 {
+  # TODO: Read devShell from user devShell
   perSystem = { pkgs, ... }: {
     # For nix develop
     devShells.default = pkgs.mkShell {
