@@ -1,0 +1,11 @@
+name: spotandjake
+description: My Main User Profile
+darwin:
+  # TODO: dock
+  dock: null
+  programs: []
+nix:
+  programs: []
+shared:
+  programs: []
+bundles: [minimalDevShell]

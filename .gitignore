@@ -1,4 +1,2 @@
-home/modules/ssh/
-secrets/
-.sops.yaml
 .DS_Store
+.direnv
