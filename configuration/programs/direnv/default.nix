@@ -1,7 +1,7 @@
 let
   name = "direnv";
 in
-{ config, pkgs, lib, ... }: {
+{ config, lib, ... }: {
   options = {
     module.program.${name}.enable = lib.mkEnableOption "Enables ${name}";
   };

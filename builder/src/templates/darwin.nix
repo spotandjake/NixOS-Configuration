@@ -16,7 +16,8 @@
       # Enable Finger Print Reader
       security.pam.enableSudoTouchIdAuth = true;
     }
-    # TODO: Load overlays
+    # Load overlays
+    ../../overlays
     # Modules
     ../../modules
     # TODO: Secrets

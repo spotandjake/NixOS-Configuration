@@ -1,6 +1,6 @@
 { inputs, lib, pkgs, hostPlatform, ... }: {
   nixpkgs = {
-    hostPlatform = hostPlatform;
+    inherit hostPlatform;
     config = {
       allowUnfree = true;
     };

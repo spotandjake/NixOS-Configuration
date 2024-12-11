@@ -1,6 +1,5 @@
-{ inputs, self, lib, pkgs, ...}: 
+{ lib, self, pkgs, ...}: 
 {
-  # TODO: Configure homeDirectory
   users.users."%~ username %" = {
     name = ""%~ username %"";
     home = ""%~ homeDirectory %"";
@@ -10,6 +9,10 @@
     useGlobalPkgs   = true;
     useUserPackages = true;
     backupFileExtension = "backup-" + lib.readFile "${pkgs.runCommand "timestamp" {} "echo -n `date '+%Y%m%d%H%M%S'` > $out"}";
+
+    extraSpecialArgs = {
+      programDirectory = "${self}/programs";
+    };
 
     users."%~ username %" = {
       "% programs.forEach(p => { %"
