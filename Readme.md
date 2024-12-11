@@ -115,6 +115,8 @@ This repository is not fully setup and the parts that are, are still a little ne
   - Make a custom module system based around `./config.nix`
   - Remove configured settings in `modules/darwin/default.nix`
     - This sets up `nix-darwin` but I want this stuff to be configurable from `./config.nix`
+- look into adding all my custom packages to local home-manager packages
+  - consider upstreaming
 
 ## 🦋 Inspiration
 

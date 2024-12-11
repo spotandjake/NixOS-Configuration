@@ -1,6 +1,6 @@
-{ config, inputs, self, lib, pkgs, ...}: {
+{ inputs, self, lib, pkgs, ...}: {
   # TODO: Configure homeDirectory
-  users.users.eve = {
+  users.users.spotandjake = {
     name = "spotandjake";
     home = "/Users/spotandjake";
   };

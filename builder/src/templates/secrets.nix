@@ -1,4 +1,4 @@
-{ config, ... }: {
+_: {
   opnix = {
   #   # This is where you put your Service Account token in .env file format, e.g.
   #   # OP_SERVICE_ACCOUNT_TOKEN="{your token here}"
