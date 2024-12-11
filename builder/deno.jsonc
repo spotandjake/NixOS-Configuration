@@ -1,11 +1,12 @@
 {
   "tasks": {
-    "build": "deno compile --allow-read --include ./src/templates --output builder ./src/main.ts",
-    "run": "./builder ../configuration -o ./dist",
+    "build": "deno compile --allow-read --allow-write --include ./src/templates --output builder ./src/main.ts",
+    "run": "./builder ../configuration -o ../dist",
     "start": "deno run build && deno run run"
   },
   "imports": {
     "@eta-dev/eta": "jsr:@eta-dev/eta@^3.5.0",
+    "@std/fs": "jsr:@std/fs",
     "@std/path": "jsr:@std/path",
     "@std/yaml": "jsr:@std/yaml",
     "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",

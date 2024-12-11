@@ -10,7 +10,6 @@
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      # TODO: Package deno builder
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
           buildInputs = [ pkgs.deno ];

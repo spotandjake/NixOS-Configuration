@@ -43,9 +43,9 @@
       flake = {
         # TODO: Nix
         # Nix Darwin
-        darwinConfigurations = "%~ darwinConfigurations %";
+        darwinConfigurations = { JakesMacBook = import ./systems/JakesMacBook/system.nix { inherit inputs self; }; };
         # Nix Os
-        nixosConfigurations = "%~ nixosConfigurations %";
+        nixosConfigurations = {  };
         # Templates
         templates = import "${self}/templates" { inherit self; };
       };
