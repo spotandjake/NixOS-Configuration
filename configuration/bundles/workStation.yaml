@@ -1,0 +1,11 @@
+name: workStation
+description: my genericWorkStation
+darwinPrograms:
+  - raycast
+  - iterm2
+nixPrograms: []
+sharedPrograms:
+  - arc-browser
+  - discord
+  - spotify
+  - obsidian

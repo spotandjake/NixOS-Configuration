@@ -1,0 +1,5 @@
+name: spotify
+description: Am elegant music streaming app
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

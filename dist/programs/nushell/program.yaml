@@ -1,0 +1,5 @@
+name: nushell
+description: A nicer shell
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

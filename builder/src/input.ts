@@ -4,24 +4,24 @@ import {
   systemsFileSchema,
   userSchema,
   bundleSchema,
+  programSchema,
   type Systems,
   type User,
   type Bundle,
   type Configuration,
+  type Program,
 } from './schemas.ts';
 import { parse } from '@std/yaml';
 // Helpers
-const read_file = async (
-  file_path: string
-): Promise<Result<string, string>> => {
+const readFile = async (filePath: string): Promise<Result<string, string>> => {
   try {
-    const contents = await Deno.readTextFile(file_path);
+    const contents = await Deno.readTextFile(filePath);
     return ok(contents);
   } catch (_) {
-    return err(`Failed to read file ${file_path}`);
+    return err(`Failed to read file ${filePath}`);
   }
 };
-const safe_parse = (raw: string): Result<unknown, string> => {
+const safeParse = (raw: string): Result<unknown, string> => {
   try {
     return { ok: parse(raw), isErr: false };
   } catch (err: unknown) {
@@ -33,18 +33,16 @@ const safe_parse = (raw: string): Result<unknown, string> => {
   }
 };
 // Configurations/System.yaml
-const get_system_file_path = (input_directory: string) =>
-  path.join(input_directory, 'systems.yaml');
-export const read_system_file = async (
-  input_directory: string,
+export const readSystemFile = async (
+  inputDirectory: string,
   users: Map<string, User>
 ): Promise<Result<Systems, string>> => {
   // Read The System File
-  const file_path = get_system_file_path(input_directory);
-  const file_contents = await read_file(file_path);
-  if (file_contents.isErr) return err(file_contents.err);
+  const filePath = path.join(inputDirectory, 'systems.yaml');
+  const fileContents = await readFile(filePath);
+  if (fileContents.isErr) return err(fileContents.err);
   // Parse The System File
-  const parsed = safe_parse(file_contents.ok);
+  const parsed = safeParse(fileContents.ok);
   if (parsed.isErr) return err(parsed.err);
   // Validate The System File
   const { data, error, success } = systemsFileSchema.safeParse(parsed.ok);
@@ -53,7 +51,7 @@ export const read_system_file = async (
   if (!data.systems.every(({ user }) => users.has(user))) {
     return data.systems.reduce((acc, { user }) => {
       if (!users.has(user))
-        return err(`User ${user} does not exist in ${file_path}`);
+        return err(`User ${user} does not exist in ${filePath}`);
       else return acc;
     }, err<Systems, string>('Unknown User'));
   }
@@ -61,29 +59,29 @@ export const read_system_file = async (
 };
 // TODO Configurations/Secrets.yaml
 // Configurations/Users/*.yaml
-const get_user_directory_path = (input_directory: string) =>
-  path.join(input_directory, 'users/');
-export const read_user_files = async (
-  input_directory: string,
+export const readUserFiles = async (
+  inputDirectory: string,
   bundles: Map<string, Bundle>
 ): Promise<Result<Map<string, User>, string>> => {
-  const directory_path = get_user_directory_path(input_directory);
+  const directoryPath = path.join(inputDirectory, 'users/');
   // Read The Directory
   try {
     const users = new Map();
-    const user_directory_files = Deno.readDir(directory_path);
-    for await (const user_file_entry of user_directory_files) {
-      if (user_file_entry.isFile == false) continue;
-      if (path.extname(user_file_entry.name) !== '.yaml') continue;
+    const userConfigs = Deno.readDir(directoryPath);
+    for await (const userConfigFile of userConfigs) {
+      if (userConfigFile.isFile == false) continue;
+      if (path.extname(userConfigFile.name) !== '.yaml') continue;
       // Read The File
-      const user_file_path = path.join(directory_path, user_file_entry.name);
-      const user_contents = await read_file(user_file_path);
-      if (user_contents.isErr) return err(user_contents.err);
+      const userConfigFilePath = path.join(directoryPath, userConfigFile.name);
+      const userConfig = await readFile(userConfigFilePath);
+      if (userConfig.isErr) return err(userConfig.err);
       // Parse The File
-      const parsed = safe_parse(user_contents.ok);
-      if (parsed.isErr) return err(parsed.err);
+      const parsedUserConfig = safeParse(userConfig.ok);
+      if (parsedUserConfig.isErr) return err(parsedUserConfig.err);
       // Validate The File
-      const { data, error, success } = userSchema.safeParse(parsed.ok);
+      const { data, error, success } = userSchema.safeParse(
+        parsedUserConfig.ok
+      );
       if (success == false) return err(error.message);
       // Deduplication
       if (users.has(data.name)) return err(`Duplicate user ${data.name}`);
@@ -93,7 +91,7 @@ export const read_user_files = async (
         return data.bundles.reduce((acc, bundleName) => {
           if (!bundles.has(bundleName))
             return err(
-              `Bundle ${bundleName} does not exist in ${user_file_path}`
+              `Bundle ${bundleName} does not exist in ${userConfigFile}`
             );
           else return acc;
         }, err<Map<string, User>, string>('Unknown Bundle'));
@@ -103,32 +101,27 @@ export const read_user_files = async (
     }
     return ok(users);
   } catch {
-    return err(`Failed to read directory ${directory_path}`);
+    return err(`Failed to read directory ${directoryPath}`);
   }
 };
 // Configurations/Bundles/*.yaml
-const get_bundle_directory_path = (input_directory: string) =>
-  path.join(input_directory, 'bundles/');
-export const read_bundle_files = async (
-  input_directory: string
+export const readBundleFiles = async (
+  inputDirectory: string
 ): Promise<Result<Map<string, Bundle>, string>> => {
-  const directory_path = get_bundle_directory_path(input_directory);
+  const bundleDirectory = path.join(inputDirectory, 'bundles/');
   // Read The Directory
   try {
     const bundles = new Map();
-    const bundle_directory_files = Deno.readDir(directory_path);
-    for await (const bundle_file_entry of bundle_directory_files) {
-      if (bundle_file_entry.isFile == false) continue;
-      if (path.extname(bundle_file_entry.name) !== '.yaml') continue;
+    const bundleFiles = Deno.readDir(bundleDirectory);
+    for await (const bundleFile of bundleFiles) {
+      if (bundleFile.isFile == false) continue;
+      if (path.extname(bundleFile.name) !== '.yaml') continue;
       // Read The File
-      const bundle_file_path = path.join(
-        directory_path,
-        bundle_file_entry.name
-      );
-      const bundle_contents = await read_file(bundle_file_path);
-      if (bundle_contents.isErr) return err(bundle_contents.err);
+      const bundleFilePath = path.join(bundleDirectory, bundleFile.name);
+      const bundleContents = await readFile(bundleFilePath);
+      if (bundleContents.isErr) return err(bundleContents.err);
       // Parse The File
-      const parsed = safe_parse(bundle_contents.ok);
+      const parsed = safeParse(bundleContents.ok);
       if (parsed.isErr) return err(parsed.err);
       // Validate The File
       const { data, error, success } = bundleSchema.safeParse(parsed.ok);
@@ -141,26 +134,61 @@ export const read_bundle_files = async (
     }
     return ok(bundles);
   } catch {
-    return err(`Failed to read directory ${directory_path}`);
+    return err(`Failed to read directory ${bundleDirectory}`);
   }
 };
-// TODO Configurations/Configs/*.yaml
+// Configurations/Programs/*.yaml
+export const readProgramFiles = async (
+  inputDirectory: string
+): Promise<Result<Map<string, Program>, string>> => {
+  const programDirectory = path.join(inputDirectory, 'programs/');
+  // Read The Directory
+  try {
+    const programs = new Map();
+    const programFiles = Deno.readDir(programDirectory);
+    for await (const programFile of programFiles) {
+      if (programFile.isDirectory == false) continue;
+      const programPath = path.join(programDirectory, programFile.name);
+      // Read The File
+      const programContents = await readFile(
+        path.join(programPath, 'program.yaml')
+      );
+      if (programContents.isErr) return err(programContents.err);
+      // Parse The File
+      const parsed = safeParse(programContents.ok);
+      if (parsed.isErr) return err(parsed.err);
+      // Validate The File
+      const { data, error, success } = programSchema.safeParse(parsed.ok);
+      if (success == false) return err(error.message);
+      // Deduplication
+      if (programs.has(data.name)) return err(`Duplicate program ${data.name}`);
+      // Store The File
+      programs.set(data.name, data);
+    }
+    return ok(programs);
+  } catch {
+    return err(`Failed to read directory ${programDirectory}`);
+  }
+};
 // Configurations
-export const get_configurations = async (
-  input_directory: string
+export const getConfigurations = async (
+  inputDirectory: string
 ): Promise<Result<Configuration, string>> => {
   // Get The Inputs
-  const bundles = await read_bundle_files(input_directory);
+  const bundles = await readBundleFiles(inputDirectory);
   if (bundles.isErr) return bundles;
-  const users = await read_user_files(input_directory, bundles.ok);
+  const users = await readUserFiles(inputDirectory, bundles.ok);
   if (users.isErr) return users;
-  const systems = await read_system_file(input_directory, users.ok);
+  const systems = await readSystemFile(inputDirectory, users.ok);
   if (systems.isErr) return systems;
+  const programs = await readProgramFiles(inputDirectory);
+  if (programs.isErr) return programs;
   // Validate The Input Strings With Zod
   return ok({
     systems: systems.ok,
     users: users.ok,
     bundles: bundles.ok,
+    programs: programs.ok,
   });
 };
 // Add impermanence to user

@@ -1,5 +1,6 @@
 name: spotandjake
 description: My Main User Profile
+# TODO: Add back lunar home-brew item
 darwin:
   # TODO: dock
   dock: null
@@ -8,4 +9,4 @@ nix:
   programs: []
 shared:
   programs: []
-bundles: [minimalDevShell]
+bundles: [minimalDevShell, devEnv, workStation]

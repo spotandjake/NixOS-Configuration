@@ -2,7 +2,8 @@
   modules = [
     # Darwin Configuration
     {
-      nixpkgs.system = ""%~ raw_platform %"";
+      # TODO: Move this to its own config
+      nixpkgs.system = ""%~ rawPlatform %"";
       system = {
         configurationRevision = self.rev or self.dirtyRev or null;
         stateVersion = 5;

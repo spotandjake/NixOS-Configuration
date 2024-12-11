@@ -3,6 +3,7 @@ description: The bare minimum shell setup
 darwinPrograms: []
 nixPrograms: []
 sharedPrograms:
-  - vim
+  # - vim
+  - direnv
   - git
   - nushell

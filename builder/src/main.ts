@@ -1,7 +1,7 @@
 import { Command } from '@cliffy/command';
-import { get_dir, error } from './utils.ts';
-import { get_configurations } from './input.ts';
-import { set_configurations } from './output.ts';
+import { joinPath, getDir, error } from './utils.ts';
+import { getConfigurations } from './input.ts';
+import { setConfigurations } from './output.ts';
 
 await new Command()
   .name('NixOs Configuration Builder')
@@ -15,17 +15,18 @@ await new Command()
   .arguments('<project_directory>')
   .action(async ({ output }, input) => {
     // Get the working and output directory
-    const directoryPath = get_dir(input);
-    const outputPath = get_dir(output);
+    const directoryPath = getDir(input);
+    const outputPath = getDir(output);
     // Get The input
-    const input_configurations = await get_configurations(directoryPath);
-    if (input_configurations.isErr) return error(input_configurations.err);
+    const inputConfigs = await getConfigurations(directoryPath);
+    if (inputConfigs.isErr) return error(inputConfigs.err);
     // Generate The Output
-    const output_configurations = await set_configurations(
-      input_configurations.ok,
+    const outputConfigs = await setConfigurations(
+      inputConfigs.ok,
+      joinPath(directoryPath, 'programs'),
       outputPath
     );
-    if (output_configurations.isErr) return error(output_configurations.err);
+    if (outputConfigs.isErr) return error(outputConfigs.err);
   })
   .parse(Deno.args);
 

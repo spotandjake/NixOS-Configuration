@@ -1,0 +1,5 @@
+name: discord
+description: A simple text communication service.
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

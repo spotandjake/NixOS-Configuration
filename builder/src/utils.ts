@@ -2,7 +2,10 @@ import * as path from '@std/path';
 import { colors } from '@cliffy/ansi/colors';
 
 // Path
-export const get_dir = (dir: string) => {
+export const joinPath = (...dir: string[]) => {
+  return path.join(...dir);
+};
+export const getDir = (dir: string) => {
   const cwd = Deno.cwd();
   return path.join(cwd, dir);
 };

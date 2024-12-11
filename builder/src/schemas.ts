@@ -1,6 +1,6 @@
 // TODO: Add an import map
 import * as zod from '@zod/lib';
-
+// TODO: Use zod to perform as many of these transformations as possible
 export const darwinPlatformsSchema = zod.enum([
   'aarch64-darwin',
   'x86_64-darwin',
@@ -53,10 +53,38 @@ export const bundleSchema = zod.strictObject({
   sharedPrograms: zod.array(zod.string()),
 });
 export type Bundle = zod.infer<typeof bundleSchema>;
+// Programs
+export const baseProgramSchema = zod.strictObject({
+  name: zod.string(),
+  description: zod.string(),
+  // Properties
+  supportsDarwin: zod.boolean(),
+  supportsNix: zod.boolean(),
+});
+export const customProgramSchema = baseProgramSchema.extend({
+  defaultScript: zod.string(),
+});
+// TODO: Begin Adding Specific Program Schemas
+export const homebrewConfiguration = zod.object({
+  name: zod.string(),
+  enable: zod.boolean().default(true),
+});
+export const yamlProgramSchema = baseProgramSchema.extend({
+  supportsDarwin: zod.boolean().default(true),
+  supportsLinux: zod.boolean().default(true),
+  nix: zod.string().array().default([]),
+  homeBrew: zod.string().array().default([]),
+  homeManager: homebrewConfiguration,
+});
+export const programSchema = zod.union([
+  customProgramSchema,
+  yamlProgramSchema,
+]);
+export type Program = zod.infer<typeof programSchema>;
 // Configurations
 export type Configuration = {
   systems: Systems;
   users: Map<string, User>;
   bundles: Map<string, Bundle>;
-  // appConfigurations: AppConfigurations;
+  programs: Map<string, Program>;
 };

@@ -1,4 +1,5 @@
-{ inputs, self, lib, pkgs, ...}: {
+{ inputs, self, lib, pkgs, ...}: 
+{
   # TODO: Configure homeDirectory
   users.users.spotandjake = {
     name = "spotandjake";
@@ -15,7 +16,19 @@
     };
 
     users.spotandjake = {
-      # imports = userConfig.configurations ++ [ "${homeModules}" ];
+            module.program.direnv.enable = true;
+            module.program.git.enable = true;
+            module.program.nushell.enable = true;
+            module.program.vscode.enable = true;
+            module.program.gitkraken.enable = true;
+            module.program.yazi.enable = true;
+            module.program.raycast.enable = true;
+            module.program.iterm2.enable = true;
+            module.program.arc-browser.enable = true;
+            module.program.discord.enable = true;
+            module.program.spotify.enable = true;
+            module.program.obsidian.enable = true;
+            imports = [ ../../modules ../../programs ];
       home = {
         username = "spotandjake";
         homeDirectory = "/Users/spotandjake";

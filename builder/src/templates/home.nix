@@ -1,4 +1,5 @@
-{ inputs, self, lib, pkgs, ...}: {
+{ inputs, self, lib, pkgs, ...}: 
+{
   # TODO: Configure homeDirectory
   users.users."%~ username %" = {
     name = ""%~ username %"";
@@ -12,10 +13,14 @@
 
     extraSpecialArgs  = {
       inherit inputs self;
+      hostPlatform = "%~ rawPlatform %";
     };
 
     users."%~ username %" = {
-      # imports = userConfig.configurations ++ [ "${homeModules}" ];
+      "% programs.forEach(p => { %"
+      module.program."%~ p %".enable = true;
+      "% }) %"
+      imports = [ ../../modules ../../programs ];
       home = {
         username = ""%~ username %"";
         homeDirectory = ""%~ homeDirectory %"";
