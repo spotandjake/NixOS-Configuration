@@ -11,16 +11,11 @@
     useUserPackages = true;
     backupFileExtension = "backup-" + lib.readFile "${pkgs.runCommand "timestamp" {} "echo -n `date '+%Y%m%d%H%M%S'` > $out"}";
 
-    extraSpecialArgs  = {
-      inherit inputs self;
-      hostPlatform = "%~ rawPlatform %";
-    };
-
     users."%~ username %" = {
       "% programs.forEach(p => { %"
       module.program."%~ p %".enable = true;
       "% }) %"
-      imports = [ ../../modules ../../programs ];
+      imports = [ ../../programs ];
       home = {
         username = ""%~ username %"";
         homeDirectory = ""%~ homeDirectory %"";

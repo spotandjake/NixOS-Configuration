@@ -37,6 +37,8 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       # Systems This Configuration Supports
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      # Load Flake parts
+      imports = [ ./parts ];
       # Flake parts Templates
       flake = {
         # TODO: Nix

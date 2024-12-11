@@ -11,10 +11,6 @@
     useUserPackages = true;
     backupFileExtension = "backup-" + lib.readFile "${pkgs.runCommand "timestamp" {} "echo -n `date '+%Y%m%d%H%M%S'` > $out"}";
 
-    extraSpecialArgs  = {
-      inherit inputs self;
-    };
-
     users.spotandjake = {
             module.program.direnv.enable = true;
             module.program.git.enable = true;
@@ -28,7 +24,7 @@
             module.program.discord.enable = true;
             module.program.spotify.enable = true;
             module.program.obsidian.enable = true;
-            imports = [ ../../modules ../../programs ];
+            imports = [ ../../programs ];
       home = {
         username = "spotandjake";
         homeDirectory = "/Users/spotandjake";

@@ -6,7 +6,7 @@ import {
   type PlatformSchema,
   type Configuration,
   type User,
-  type Bundle
+  type Bundle,
 } from './schemas.ts';
 // Build Configurations
 enum SystemPlatform {
@@ -233,6 +233,13 @@ export const setConfigurations = async (
   await copy(
     path.join(import.meta.dirname, 'templates', 'overlays'),
     path.join(outputPath, 'overlays')
+  );
+  // Parts - Straight Copy
+  if (import.meta.dirname == undefined)
+    return err('Cli Error Missing Meta Dirname');
+  await copy(
+    path.join(import.meta.dirname, 'templates', 'parts'),
+    path.join(outputPath, 'parts')
   );
   // Programs
   await createFolder(outputPath, 'programs');
