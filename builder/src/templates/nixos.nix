@@ -1,1 +1,0 @@
-# TODO: Setup nixos configurations

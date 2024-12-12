@@ -1,9 +1,9 @@
 name: minimalDevShell
 description: The bare minimum shell setup
-darwinPrograms: []
-nixPrograms: []
-sharedPrograms:
+darwin: []
+nix: []
+shared:
   # - vim
-  - direnv
-  - git
-  - nushell
+  - name: direnv
+  - name: git
+  - name: nushell

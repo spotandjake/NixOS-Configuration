@@ -1,11 +1,13 @@
+{ config, lib, ... }:
+with lib;
 let
   name = "yazi";
-in
-{ config,  lib, ... }: {
-  options = {
-    module.program.${name}.enable = lib.mkEnableOption "Enables ${name}";
+  cfg = config.program."${name}";
+in {
+  options.program.${name} = {
+    enable = mkEnableOption "Enables ${name}";
   };
-  config = lib.mkIf config.module.program.${name}.enable {
+  config = mkIf cfg.enable {
     programs.yazi = {
       enable = true;
       # This is off because it causes an issue in our env.nu

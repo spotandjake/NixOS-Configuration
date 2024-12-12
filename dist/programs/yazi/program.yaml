@@ -1,5 +1,0 @@
-name: yazi
-description: A terminal based file system viewer
-supportsDarwin: true
-supportsNix: true
-defaultScript: ./default.nix

@@ -1,8 +1,8 @@
 name: devEnv
 description: My Basic Development Environment
-darwinPrograms: []
-nixPrograms: []
-sharedPrograms:
-  - vscode
-  - gitkraken
-  - yazi
+darwin: []
+nix: []
+shared:
+  - name: vscode
+  - name: gitkraken
+  - name: yazi

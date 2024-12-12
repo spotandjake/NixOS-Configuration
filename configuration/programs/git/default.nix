@@ -1,12 +1,14 @@
+{ config, lib, ... }:
+with lib;
 let
   name = "git";
-in
-{ config,  lib, ... }: {
-  options = {
-    module.program.${name}.enable = lib.mkEnableOption "Enables ${name}";
+  cfg = config.program."${name}";
+in {
+  options.program.${name} = {
+    enable = mkEnableOption "Enables ${name}";
   };
-  config = lib.mkIf config.module.program.${name}.enable {
-    programs.git = {
+  config = mkIf cfg.enable {
+     programs.git = {
       enable = true;
       userName = "Spotandjake";
       userEmail = "spotandjake@hotmail.com";

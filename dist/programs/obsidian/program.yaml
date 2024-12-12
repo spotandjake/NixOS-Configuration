@@ -1,5 +1,0 @@
-name: obsidian
-description: A deeply customizable markdown based knowledge garden
-supportsDarwin: true
-supportsNix: true
-defaultScript: ./default.nix

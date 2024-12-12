@@ -1,5 +1,0 @@
-name: arc-browser
-description: A beautiful chromium based web browser
-supportsDarwin: true
-supportsNix: true
-defaultScript: ./default.nix
