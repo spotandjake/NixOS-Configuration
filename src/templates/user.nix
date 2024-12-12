@@ -45,12 +45,28 @@ in
   bundle."%~ bundle %".enable = true;
     "% }); %"
 
-      imports = [ ../bundles ../programs ];
+      imports = [
+        ../bundles
+        ../programs
+        # impermanence.homeManagerModules.impermanence
+      ];
       home = {
         username = name;
         inherit homeDirectory;
         # Home Manager Version
         stateVersion = "25.05";
+        # Impersistance
+        # persistence."/persistent/home/${name}" = {
+        #   directories = [
+        #     "Downloads"
+        #     "Music"
+        #     "Pictures"
+        #     "Documents"
+        #     "Videos"
+        #   ];
+        #   files = [];
+        #   allowOther = true;
+        # };
       };
     };
   };
