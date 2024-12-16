@@ -1,18 +1,19 @@
 # This file is generated automatically by the `system-config` package.
-{ lib, pkgs, isDarwin, isNix, ...}: 
+{ inputs, lib, pkgs, isDarwin, isNix, ...}: 
 with lib;
 let
   name = ""%~ name %"";
   homeDirectory = if isNix then "/home/${name}" else "/Users/${name}";
 in
 {
+  "%~ (darwin.dock != null) ? `system.defaults.dock = ${objToNix(darwin.dock)}` : '' %"
   # TODO: Dock settings and stuff like that
   users.users."${name}" = {
     name = "${name}";
     home = homeDirectory;
   };
   home-manager = {
-    extraSpecialArgs = { inherit isDarwin is Nix; };
+    extraSpecialArgs = { inherit inputs isDarwin is Nix; };
     # https://home-manager-options.extranix.com/
     useGlobalPkgs   = true;
     useUserPackages = true;
@@ -21,21 +22,21 @@ in
     users."${name}" = {
       # Darwin Programs
       "% darwin.programs.forEach((program) => { %"
-"%~ program.name %" = mkIf isDarwin {
+program."%~ program.name %" = mkIf isDarwin {
         enable = "%~ program.enable %";
       };
       "% }); %"
 
       # Nix Programs
       "% nix.programs.forEach((program) => { %"
-"%~ program.name %" = mkIf isNix {
+program."%~ program.name %" = mkIf isNix {
         enable = "%~ program.enable %";
       };
       "% }); %"
 
       # Shared Programs
       "% shared.programs.forEach((program) => { %"
-"%~ program.name %" = {
+program."%~ program.name %" = {
         enable = "%~ program.enable %";
       };
       "% }); %"
@@ -48,7 +49,7 @@ in
       imports = [
         ../bundles
         ../programs
-        # impermanence.homeManagerModules.impermanence
+        # inputs.impermanence.homeManagerModules.impermanence
       ];
       home = {
         username = name;
@@ -58,6 +59,7 @@ in
         # Impersistance
         # persistence."/persistent/home/${name}" = {
         #   directories = [
+        #     "Desktop"
         #     "Downloads"
         #     "Music"
         #     "Pictures"

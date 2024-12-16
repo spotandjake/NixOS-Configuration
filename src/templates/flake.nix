@@ -24,7 +24,8 @@
       url = "github:mrjones2014/opnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # TODO: Impermanence
+    # Impermanence
+    # impermanence.url = "github:nix-community/impermanence";
     # Home Configuration
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -32,6 +33,11 @@
     };
     # Tools
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    # Spicetify
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ flake-parts, self, ... }:

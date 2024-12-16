@@ -22,6 +22,21 @@ const getSystemType = (platform: string): 'darwin' | 'nix' => {
   }
 };
 
+const objToNix = (obj: Record<string, unknown>): string => {
+  const entries = Object.entries(obj);
+  if (entries.length == 0) return '{}';
+  const lines = entries.map(([k, v]) => {
+    if (v instanceof Object) {
+      return `${k} = [${v.map((i) => objToNix(i)).join(', ')}];`;
+    } else {
+      return `${k} = ${v};`;
+    }
+  });
+  return `{
+    ${lines.join('\n  ')}
+  };`;
+};
+
 export const buildConfiguration = async (
   config: Configuration,
   outputDir: string
@@ -83,7 +98,10 @@ export const buildConfiguration = async (
   const userDirectory = path.join(outputDir, 'users');
   for (const [userName, user] of config.users) {
     const userFile = path.join(userDirectory, `${userName}.nix`);
-    const userContent = await eta.renderAsync('user.nix', user);
+    const userContent = await eta.renderAsync('user.nix', {
+      ...user,
+      objToNix,
+    });
     await safeWriteFile(userFile, userContent);
   }
   // Build Systems - for each system and will either be darwin or nix

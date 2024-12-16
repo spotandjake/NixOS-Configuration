@@ -7,5 +7,5 @@ nix: []
 shared:
   - name: arc-browser
   - name: discord
-  - name: spotify
+  # - name: spotify
   - name: obsidian

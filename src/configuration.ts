@@ -120,12 +120,47 @@ const getBundles = async (
 const platformConfigSchema = zod.strictObject({
   programs: programConfigurationSchema.array(),
 });
+
 const userSchema = zod.strictObject({
   name: zod.string(),
   description: zod.string(),
   darwin: platformConfigSchema.extend({
-    // TODO: Add dock settings
-    dock: zod.null(),
+    dock: zod.strictObject({
+      'appswitcher-all-displays': zod.boolean().nullable().default(null),
+      autohide: zod.boolean().nullable().default(null),
+      'autohide-delay': zod.number().nullable().default(null),
+      'autohide-time-modifier': zod.number().nullable().default(null),
+      'dashboard-in-overlay': zod.boolean().nullable().default(null),
+      'enable-spring-load-actions-on-all-items': zod
+        .boolean()
+        .nullable()
+        .default(null),
+      'expose-animation-duration': zod.number().nullable().default(null),
+      largesize: zod.number().min(16).max(128).nullable().default(null),
+      launchanim: zod.boolean().nullable().default(null),
+      magnification: zod.boolean().nullable().default(null),
+      mineffect: zod.enum(['genie', 'scale', 'suck']).nullable().default(null),
+      'minimize-to-application': zod.boolean().nullable().default(null),
+      'mouse-over-hilite-stack': zod.boolean().nullable().default(null),
+      'mru-spaces': zod.boolean().nullable().default(null),
+      orientation: zod
+        .enum(['bottom', 'left', 'right'])
+        .nullable()
+        .default(null),
+      'persistent-apps': zod.array(zod.string()).nullable().default(null),
+      'persistent-others': zod.array(zod.string()).nullable().default(null),
+      'scroll-to-open': zod.boolean().nullable().default(null),
+      'show-process-indicators': zod.boolean().nullable().default(null),
+      'show-recents': zod.boolean().nullable().default(null),
+      showhidden: zod.boolean().nullable().default(null),
+      ' slow-motion-allowed': zod.boolean().nullable().default(null),
+      'static-only': zod.boolean().nullable().default(null),
+      tilesize: zod.number().nullable().default(null),
+      'wvous-bl-corner': zod.number().nullable().default(null),
+      'wvous-br-corner': zod.number().nullable().default(null),
+      'wvous-tl-corner': zod.number().nullable().default(null),
+      'wvous-tr-corner': zod.number().nullable().default(null),
+    }),
   }),
   nix: platformConfigSchema,
   shared: platformConfigSchema,

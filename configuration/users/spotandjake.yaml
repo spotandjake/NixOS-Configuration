@@ -3,8 +3,38 @@ description: My Main User Profile
 # TODO: Add back lunar home-brew item
 darwin:
   # TODO: dock
-  dock: null
-  programs: []
+  dock:
+    # appswitcher-all-displays: false
+    autohide: false
+    autohide-delay: 99999999999999.1 # Large value to keep it on the main screen
+    # autohide-time-modifier
+    # dashbord-in-overlay
+    # enable-spring-load-actions-on-all-items
+    # expose-animation-duration
+    # expose-group-by-app
+    largesize: 80
+    # launchanim: true
+    magnification: true
+    # mineffect
+    # minimize-to-application
+    # mouse-overhilite-stack
+    # mru-spaces
+    # orientation
+    # persistent-apps
+    # persistent-others
+    # scroll-to-open
+    # show-process-indicators
+    # show-recents
+    # showhidden
+    # slow-motion-alowed
+    # static-only
+    # tilesize
+    # wvous-bl-corner
+    # wvous-br-corner
+    # wvous-tl-corner
+    # wvous-tr-corner
+  programs:
+    - name: spicetify
 nix:
   programs: []
 shared:

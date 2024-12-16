@@ -27,9 +27,6 @@ in {
       discord = {
         enable = true;
       };
-      spotify = {
-        enable = true;
-      };
       obsidian = {
         enable = true;
       };
