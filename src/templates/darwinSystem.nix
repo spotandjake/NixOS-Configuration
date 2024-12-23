@@ -45,7 +45,7 @@ let
       # This is a module from nix-darwin
       # Homebrew is *installed* via the flake input nix-homebrew
       enable = true;
-      casks = [ "lunar" ];
+      casks = [ "lunar" "1Password" ];
 
       # These app IDs are from using the mas CLI app
       # mas = mac app store

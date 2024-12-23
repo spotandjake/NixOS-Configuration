@@ -14,8 +14,9 @@ in {
       userEmail = "spotandjake@hotmail.com";
 
       signing = {
-        key = "32B60BCA157296EE";
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINeBcwM1G2GjkhLxKFiLUv4yO4nfYJLuBTOy4A93TOqi";
         signByDefault = true;
+        gpgPath = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
       aliases = {
         lg1 = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
