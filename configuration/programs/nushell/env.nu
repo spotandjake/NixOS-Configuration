@@ -9,13 +9,21 @@ $env.config = {
       direnv export json | from json | default {} | load-env
       if 'ENV_CONVERSIONS' in $env and 'PATH' in $env.ENV_CONVERSIONS {
         $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
+        # Cargo
+        # Node Version Manager
+        ^fnm env --resolve-engines --corepack-enabled --json | from json | load-env
+        let node_path = match $nu.os-info.name {
+          "windows" => $"($env.FNM_MULTISHELL_PATH)",
+          _ => $"($env.FNM_MULTISHELL_PATH)/bin",
+        }
+        $env.PATH = ($env.PATH | prepend [ $node_path ])
       }
     }]
   }
 }
 $env.__NIX_DARWIN_SET_ENVIRONMENT_DONE = 1 
 
-$env.PATH = [
+$env.PATH = ($env.PATH | prepend [
     $"($env.HOME)/.nix-profile/bin"
     $"/etc/profiles/per-user/($env.USER)/bin"
     "/run/current-system/sw/bin"
@@ -25,7 +33,7 @@ $env.PATH = [
     "/usr/sbin"
     "/bin"
     "/sbin"
-]
+])
 $env.EDITOR = "code"
 $env.NIX_PATH = [
     $"darwin-config=($env.HOME)/.nixpkgs/darwin-configuration.nix"
@@ -155,9 +163,13 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 $env.PATH = ($env.PATH | append "/opt/homebrew/bin")
-
-$env.PATH = ($env.PATH | append "/usr/local/bin/zed")
-
-$env.PATH = ($env.PATH | append "/Users/spotandjake/.cargo/bin")
+$env.PATH = ($env.PATH | append "/users/spotandjake/.cargo/bin")
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.RUST_BACKTRACE = 1
+
+^fnm env --resolve-engines --corepack-enabled --json | from json | load-env
+let node_path = match $nu.os-info.name {
+  "windows" => $"($env.FNM_MULTISHELL_PATH)",
+  _ => $"($env.FNM_MULTISHELL_PATH)/bin",
+}
+$env.PATH = ($env.PATH | prepend [ $node_path ])
