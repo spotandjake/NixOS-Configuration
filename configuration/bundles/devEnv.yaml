@@ -6,3 +6,4 @@ shared:
   - name: vscode
   - name: gitkraken
   - name: yazi
+  - name: fnm

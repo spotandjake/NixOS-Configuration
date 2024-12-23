@@ -14,6 +14,50 @@ let
         /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
       '';
     };
+    # TODO: Allow all of this to be configured
+    system.defaults.CustomUserPreferences = {
+      LaunchServices = {
+        LSQuarantine = false;
+      };
+      NSGlobalDomain = {
+        AppleShowAllExtensions = true;
+      };
+      "com.apple.finder" = {
+        ShowExternalHardDrivesOnDesktop = true;
+        ShowHardDrivesOnDesktop = true;
+        ShowMountedServersOnDesktop = true;
+        ShowRemovableMediaOnDesktop = true;
+        _FXSortFoldersFirst = true;
+        _FXShowPosixPathInTitle = true;
+        # When performing a search, search the current folder by default
+        FXDefaultSearchScope = "SCcf";
+      };
+      "com.apple.desktopservices" = {
+        # Avoid creating .DS_Store files on network or USB volumes
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+      };
+      "com.apple.AdLib" = {
+        allowApplePersonalizedAdvertising = false;
+      };
+    };
+    homebrew = {
+      # This is a module from nix-darwin
+      # Homebrew is *installed* via the flake input nix-homebrew
+      enable = true;
+      casks = [ "lunar" ];
+
+      # These app IDs are from using the mas CLI app
+      # mas = mac app store
+      # https://github.com/mas-cli/mas
+      #
+      # $ nix shell nixpkgs#mas
+      # $ mas search <app name>
+      #
+      masApps = {
+        "WhatsApp Messenger" = 310633997;
+      };
+    };
   };
   platform = ""%~ platform %"";
 in

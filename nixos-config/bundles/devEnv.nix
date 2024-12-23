@@ -24,6 +24,9 @@ in {
       yazi = {
         enable = true;
       };
+      fnm = {
+        enable = true;
+      };
       
     };
   };

@@ -12,7 +12,7 @@ darwin:
     # enable-spring-load-actions-on-all-items
     # expose-animation-duration
     # expose-group-by-app
-    largesize: 80
+    largesize: 70
     # launchanim: true
     magnification: true
     # mineffect

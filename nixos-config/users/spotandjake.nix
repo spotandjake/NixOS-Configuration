@@ -14,7 +14,7 @@ in
   dashboard-in-overlay = null;
   enable-spring-load-actions-on-all-items = null;
   expose-animation-duration = null;
-  largesize = 80;
+  largesize = 70;
   launchanim = null;
   magnification = true;
   mineffect = null;
