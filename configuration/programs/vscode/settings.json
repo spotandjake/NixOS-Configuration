@@ -36,7 +36,6 @@
   "files.associations": {
     "*.br": "brisk"
   },
-  "grain.cliPath": "/Users/spotandjake/Library/Caches/fnm_multishells/3219_1677859702535/bin/grain",
   "javascript.suggest.autoImports": false,
   "typescript.implementationsCodeLens.enabled": true,
   "typescript.referencesCodeLens.enabled": true,
