@@ -10,14 +10,9 @@ $env.config = {
       if 'ENV_CONVERSIONS' in $env and 'PATH' in $env.ENV_CONVERSIONS {
         $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
         # Cargo
-        $env.PATH = ($env.PATH | append "/users/spotandjake/.cargo/bin")
-        # Node Version Manager
-        ^fnm env --resolve-engines --corepack-enabled --json | from json | load-env
-        let node_path = match $nu.os-info.name {
-          "windows" => $"($env.FNM_MULTISHELL_PATH)",
-          _ => $"($env.FNM_MULTISHELL_PATH)/bin",
-        }
-        $env.PATH = ($env.PATH | prepend [ $node_path ])
+        $env.PATH = $env.PATH | filter { |e| not ($e  | str starts-with "/users/spotandjake/.cargo/bin")  }
+        $env.PATH = ($env.PATH | prepend "/users/spotandjake/.cargo/bin")
+        # $env.PATH = ($env.PATH | prepend [ $node_path ])
       }
     }]
   }
@@ -167,10 +162,3 @@ $env.PATH = ($env.PATH | append "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | append "/users/spotandjake/.cargo/bin")
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.RUST_BACKTRACE = 1
-
-^fnm env --resolve-engines --corepack-enabled --json | from json | load-env
-let node_path = match $nu.os-info.name {
-  "windows" => $"($env.FNM_MULTISHELL_PATH)",
-  _ => $"($env.FNM_MULTISHELL_PATH)/bin",
-}
-$env.PATH = ($env.PATH | prepend [ $node_path ])
