@@ -1,6 +1,7 @@
 name: devEnv
 description: My Basic Development Environment
-darwin: []
+darwin:
+  - name: zsh
 nix: []
 shared:
   - name: vscode

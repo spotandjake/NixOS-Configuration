@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   name = "zsh";
@@ -8,10 +8,27 @@ in {
     enable = mkEnableOption "Enables ${name}";
   };
   config = mkIf cfg.enable {
-    home.file.".zshrc".source = ./.zshrc;
     programs.zsh = {
       enable = true;
-      # TODO: Configuration
+      dotDir = ".config/zsh";
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      initExtra = ''
+        eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd)"
+      '';
+      plugins = with pkgs; [
+        {
+          name = "zsh-syntax-highlighting";
+          src = fetchFromGitHub {
+            owner = "zsh-users";
+            repo = "zsh-syntax-highlighting";
+            rev = "0.6.0";
+            sha256 = "0zmq66dzasmr5pwribyh4kbkk23jxbpdw4rjxx0i7dx8jjp2lzl4";
+          };
+          file = "zsh-syntax-highlighting.zsh";
+        }
+      ];
     };
   };
 }

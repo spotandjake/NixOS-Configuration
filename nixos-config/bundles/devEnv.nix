@@ -1,5 +1,5 @@
 # This file is generated automatically by the `system-config` package.
-{ config, lib,   ... }:
+{ config, lib, isDarwin,  ... }:
 with lib;
 let
   name = "devEnv";
@@ -11,6 +11,9 @@ in {
   config = mkIf cfg.enable {
     program = {
       # Darwin Programs
+      zsh = mkIf isDarwin {
+        enable = true;
+      };
       
       # Nix Programs
       
