@@ -1,0 +1,5 @@
+name: direnv
+description: Automagically loads into a nix develop shell
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

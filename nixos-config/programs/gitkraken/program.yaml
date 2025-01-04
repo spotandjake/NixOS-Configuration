@@ -1,0 +1,5 @@
+name: gitkraken
+description: A ui based git client because sometimes you just need to see the tree.
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

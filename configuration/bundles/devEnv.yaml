@@ -1,0 +1,9 @@
+name: devEnv
+description: My Basic Development Environment
+darwin: []
+nix: []
+shared:
+  - name: vscode
+  - name: gitkraken
+  - name: yazi
+  - name: fnm

@@ -1,4 +1,5 @@
-home/modules/ssh/
-secrets/
-.sops.yaml
+# General
 .DS_Store
+.direnv
+
+bin/

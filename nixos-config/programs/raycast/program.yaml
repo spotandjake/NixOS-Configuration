@@ -1,0 +1,5 @@
+name: raycast
+description: A command prompt for your system.
+supportsDarwin: true
+supportsNix: false
+defaultScript: ./default.nix

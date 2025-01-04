@@ -65,56 +65,33 @@ This repository houses my Nix Configurations for my entire system. `config.nix` 
 
 This repository is not fully setup and the parts that are, are still a little new below is a list of what I have left todo before considering this configuration complete.
 
-- Packages
-  - Microsoft Office
-  - A Password Manager
-    - It would be nice if it had cli features
-    - Raycast support
-    - Integrated with Nix setup?
-  - Lunar Client
-- Settings
-  - Darwin
-    - The dock
-    - Keybindings
-    - Anything else I have changed
-      - I don't know if there is a good way to see this
-  - Visual Studio Code
-    - Cleanup User Settings
-    - Move User Settings into Nix
-    - Audit Keybindings
-    - Move Keybindings Into Nix
-    - Handle Extensions
-  - GitKraken
-    - I think these settings exist in `spotandjake/.gitkraken`
-    - Try to make a home manager module and upstream
-  - Iterm2
-    - I think these settings exist in `spotandjake/.iterm2`
-    - Try to make a home manager module and upstream
-- Research
-  - Secrets
-    - Do I just use a password manager?
-    - Git Signing Keys
-    - Gitkraken Authentication
-    - Local passkeys
-    - Nix sops
-      - This is for secret handling, I am wondering if I should just let the password manager handle this?
+- Development
   - Impersistance
-    - This makes any file not in the config act as temporary until the system reboots.
-    - I need to handle this last as I don't want to nuke my settings
-- My files
-  - I need to figure out how I will be backing up my files
-    - documents
-    - minecraft world
-    - desktop?
-- General
-  - Reset my Mac to this
-- Cleanup
-  - This is my first real Nix setup and I did some things in a non favorite way below is a list of cleanup.
-  - Simplify `home/default.nix`
-  - Improve `lib/default.nix`
-  - Make a custom module system based around `./config.nix`
-  - Remove configured settings in `modules/darwin/default.nix`
-    - This sets up `nix-darwin` but I want this stuff to be configurable from `./config.nix`
+    - Will run as a home-manager module
+  - Nixops
+    - Will run along side home-manager
+  - Package
+    - Microsoft office
+    - Lunar Client
+  - Settings
+    - Darwin
+      - The dock
+      - Keybindings
+      - Anything else I have changed
+        - I don't know if there is a good way to see this
+    - Visual Studio Code
+      - Cleanup User Settings
+      - Move User Settings into Nix
+      - Audit Keybindings
+      - Move Keybindings Into Nix
+      - Handle Extensions
+    - GitKraken
+      - I think these settings exist in `spotandjake/.gitkraken`
+      - Try to make a home manager module and upstream
+    - Iterm2
+      - I think these settings exist in `spotandjake/.iterm2`
+      - Try to make a home manager module and upstream
+    - Rewrite Readme for new project layout
 
 ## 🦋 Inspiration
 
