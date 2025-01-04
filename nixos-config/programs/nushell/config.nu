@@ -1,64 +1,28 @@
-# TODO: Ensure nix compatibility
-export-env {
-    def fnm-env [] {
-        mut env_vars = {}
-        let pwsh_vars = (
-            ^fnm env --shell power-shell | 
-            lines | 
-            parse "$env:{key} = \"{value}\""
-        )
-
-        # fnm-prefixed vars
-        for v in ($pwsh_vars | range 1..) { 
-            $env_vars = ($env_vars | insert $v.key $v.value) 
-        }
-
-        # path
-        let env_used_path = ($env | columns | where {str downcase | $in == "path"} | get 0)
-        let path_value = ($pwsh_vars | get 0.value | split row (char esep))
-        $env_vars = ($env_vars | insert $env_used_path $path_value)
-
-        return $env_vars
-    }
-
-    if not (which fnm | is-empty) {
-        fnm-env | load-env
-
-        if (not ($env | default false __fnm_hooked | get __fnm_hooked)) {
-            $env.__fnm_hooked = true
-            $env.config = ($env | default {} config).config
-            $env.config = ($env.config | default {} hooks)
-            $env.config = ($env.config | update hooks ($env.config.hooks | default {} env_change))
-            $env.config = ($env.config | update hooks.env_change ($env.config.hooks.env_change | default [] PWD))
-            $env.config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append { |before, after|
-                if ('FNM_DIR' in $env) and ([.nvmrc .node-version] | path exists | any { |it| $it }) {
-                    (^fnm use); (fnm-env | load-env)
-                }
-            }))
-        }
-    }
+def --env fnm-env [] {
+  $env.PATH = $env.PATH | filter { |e| not ($e  | str starts-with "/Users/spotandjake/.local/state/fnm_multishells/")  }
+  fnm env --json | from json | load-env
+  $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 }
-# Nushell Config File
-alias vim = nvim
-alias repo = gitkraken -p $env.PWD
+fnm-env
 # FNM
 $env.config = ($env.config | merge {
 	hooks: {
 		env_change: {
 			PWD: [{
+        fnm-env
 				if ([.nvmrc .node-version] | path exists | any { |it| $it }) {
 					fnm use
 				} else {
 					fnm --log-level=quiet use default
 				}
+        # Filter Unique
+        $env.PATH = ($env.PATH | uniq)
 			}]
 		}
 	}
 })
-# NU
-$env.EDITOR = "vscode"
-# ZED
-$env.ZED_DISABLE_STAFF = 0
+# Nushell Config File
+alias repo = gitkraken -p $env.PWD
 # General
 $env.CMD_DURATION_MS = "7"
 $env.COLORFGBG = "15;0"
@@ -67,12 +31,8 @@ $env.COMMAND_MODE = 'unix2003'
 $env.DIRS_LIST = '[/Users/spotandjake]'
 $env.DIRS_POSITION = '0'
 $env.HOME = '/Users/spotandjake'
-$env.ITERM_PROFILE = 'Default'
-$env.ITERM_SESSION_ID = 'w0t3p0:059F6A20-C843-4817-BFCF-D412FDA5DDAE'
 $env.LANG = 'en_CA.UTF-8'
 $env.LAST_EXIT_CODE = '0'
-$env.LC_TERMINAL = 'iTerm2'
-$env.LC_TERMINAL_VERSION = '3.5.4beta1'
 $env.LOGNAME = 'spotandjake'
 $env.LOG_ANSI = '{CRITICAL: , ERROR: , WARNING: , INFO: , DEBUG: }'
 
