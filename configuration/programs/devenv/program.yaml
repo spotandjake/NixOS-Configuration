@@ -1,0 +1,5 @@
+name: devenv
+description: Development Environment Managment
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

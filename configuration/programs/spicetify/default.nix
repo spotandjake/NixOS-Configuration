@@ -27,6 +27,7 @@ in {
         # colorScheme = "dark-bloom";
 
         enabledExtensions = with spicePkgs.extensions; [
+          fullScreen
           adblock
           autoVolume
           addToQueueTop

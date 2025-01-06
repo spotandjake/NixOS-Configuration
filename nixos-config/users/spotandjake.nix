@@ -52,6 +52,9 @@ in
       program.spicetify = mkIf isDarwin {
         enable = true;
       };
+      program.mars = mkIf isDarwin {
+        enable = true;
+      };
       
       # Nix Programs
       

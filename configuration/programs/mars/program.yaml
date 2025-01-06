@@ -1,0 +1,5 @@
+name: mars
+description: A mips ide
+supportsDarwin: true
+supportsNix: true
+defaultScript: ./default.nix

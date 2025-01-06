@@ -18,6 +18,9 @@ in {
       direnv = {
         enable = true;
       };
+      devenv = {
+        enable = true;
+      };
       git = {
         enable = true;
       };
