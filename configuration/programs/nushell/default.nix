@@ -8,11 +8,16 @@ in {
     enable = mkEnableOption "Enables ${name}";
   };
   config = mkIf cfg.enable {
-    programs.nushell = {
-      enable = true;
-      configFile.source = ./config.nu;
-      envFile.source = ./env.nu;
-      
+    programs = {
+      nushell = {
+        enable = true;
+        configFile.source = ./config.nu;
+        envFile.source = ./env.nu;
+      };
+      # carapace = {
+      #   enable = true;
+      #   enableNushellIntegration = true;
+      # };
     };
   };
 }

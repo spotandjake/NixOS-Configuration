@@ -1,23 +1,41 @@
+# Caraspace completion provider
+let carapace_completer = {|spans: list<string>|
+    carapace $spans.0 nushell ...$spans
+    | from json
+    | if ($in | default [] | where value == $"($spans | last)ERR" | is-empty) { $in } else { null }
+}
+
 def --env fnm-env [] {
-  $env.PATH = $env.PATH | filter { |e| not ($e  | str starts-with "/Users/spotandjake/.local/state/fnm_multishells/")  }
-  fnm env --json | from json | load-env
-  $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
+  if (which fnm | is-not-empty) {
+    $env.PATH = $env.PATH | filter { |e| not ($e  | str starts-with "/Users/spotandjake/.local/state/fnm_multishells/")  }
+    fnm env --json | from json | load-env
+    $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
+  }
 }
 fnm-env
 # FNM
 $env.config = ($env.config | merge {
 	hooks: {
 		env_change: {
-			PWD: [{
-        fnm-env
-				if ([.nvmrc .node-version] | path exists | any { |it| $it }) {
-					fnm use
-				} else {
-					fnm --log-level=quiet use default
-				}
-        # Filter Unique
-        $env.PATH = ($env.PATH | uniq)
-			}]
+			PWD: [
+        {
+          fnm-env
+          if ([.nvmrc .node-version] | path exists | any { |it| $it }) {
+            fnm use
+          } else {
+            fnm --log-level=quiet use default
+          }
+          # Filter Unique
+          $env.PATH = ($env.PATH | uniq)
+        },
+        { ||
+        if (which direnv | is-empty) {
+            return
+        }
+
+        direnv export json | from json | default {} | load-env
+        }
+      ]
 		}
 	}
 })

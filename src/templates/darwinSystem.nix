@@ -45,7 +45,7 @@ let
       # This is a module from nix-darwin
       # Homebrew is *installed* via the flake input nix-homebrew
       enable = true;
-      casks = [ "lunar" "1Password" "1password-cli" "ghostty" ];
+      casks = [ "lunar" "1Password" "1password-cli" "ghostty" "eclipse-java" ];
 
       # These app IDs are from using the mas CLI app
       # mas = mac app store
