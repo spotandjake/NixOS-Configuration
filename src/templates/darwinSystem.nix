@@ -4,7 +4,6 @@ let
   user = ""%~ user %"";
   systemConfiguration = {
     security.pam.enableSudoTouchIdAuth = true; # Allow Finger Print Reader For Sudo
-    services.nix-daemon.enable = true;
     system = {
       stateVersion = 5;
       configurationRevision = inputs.rev or inputs.dirtyRev or null;

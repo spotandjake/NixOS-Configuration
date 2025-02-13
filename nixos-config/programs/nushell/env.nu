@@ -55,8 +55,6 @@ $env.PATH = ($env.PATH | prepend [
 #     $env.NIX_REMOTE = "daemon"
 # }
 
-$env.PATH = ($env.PATH | prepend "/users/spotandjake/.cargo/bin")
-
 # Nushell Environment Config File
 #
 # version = 0.83.2

@@ -25,6 +25,8 @@ $env.config = ($env.config | merge {
           } else {
             fnm --log-level=quiet use default
           }
+          # Cargo
+          $env.PATH = ($env.PATH | append "/users/spotandjake/.cargo/bin")
           # Filter Unique
           $env.PATH = ($env.PATH | uniq)
         },
@@ -243,10 +245,6 @@ $env.config = {
   history: {
     sync_on_enter: true # Enable to share the history between multiple sessions, else you have to close the session to persist history to file
     max_size: 10000 # Session has to be reloaded for this to take effect
-  }
-  filesize: {
-    metric: false
-    format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   }
   completions: {
     quick: true  # set this to false to prevent auto-selecting completions when only one remains
