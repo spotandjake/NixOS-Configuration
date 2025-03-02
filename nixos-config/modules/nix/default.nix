@@ -6,6 +6,7 @@
     };
   };
   nix = {
+    enable = true;
     package = pkgs.nixVersions.latest;
     registry.s.flake = inputs.self;
     settings = {

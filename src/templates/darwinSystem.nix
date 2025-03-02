@@ -2,8 +2,16 @@
 { inputs, self }:
 let
   user = ""%~ user %"";
+  nix = {
+    linux-builder = {
+      enable = true;
+      systems = ["x86_64-linux" "aarch64-linux"];
+      config.boot.binfmt.emulatedSystems = ["x86_64-linux"];
+    };
+  };
   systemConfiguration = {
-    security.pam.enableSudoTouchIdAuth = true; # Allow Finger Print Reader For Sudo
+    # Turn off for battery life
+    security.pam.services.sudo_local.touchIdAuth = true; # Allow Finger Print Reader For Sudo
     system = {
       stateVersion = 5;
       configurationRevision = inputs.rev or inputs.dirtyRev or null;

@@ -16,7 +16,7 @@ in {
       signing = {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINeBcwM1G2GjkhLxKFiLUv4yO4nfYJLuBTOy4A93TOqi";
         signByDefault = true;
-        gpgPath = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        signer = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
       extraConfig = {
         gpg.format = "ssh";
