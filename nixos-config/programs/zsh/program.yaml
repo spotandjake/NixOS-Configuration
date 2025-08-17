@@ -1,5 +1,0 @@
-name: zsh
-description: A simple but pretty shell
-supportsDarwin: true
-supportsNix: false
-defaultScript: ./default.nix

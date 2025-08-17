@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "denoland.vscode-deno",
-    "thenuprojectcontributors.vscode-nushell-lang"
+    "thenuprojectcontributors.vscode-nushell-lang",
+    "bbenoist.nix"
   ]
 }

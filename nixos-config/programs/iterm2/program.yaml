@@ -1,5 +1,0 @@
-name: iterm2
-description: A terminal emulator
-supportsDarwin: true
-supportsNix: false
-defaultScript: ./default.nix

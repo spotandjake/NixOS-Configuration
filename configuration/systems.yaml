@@ -1,8 +1,0 @@
-systems:
-  - name: JakesMacBook
-    user: spotandjake
-    platform: aarch64-darwin
-    specs:
-      cpu: M1
-      memory: 8192
-      storage: 256

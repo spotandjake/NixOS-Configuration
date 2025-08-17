@@ -1,5 +1,0 @@
-name: vscode
-description: A rich text editor
-supportsDarwin: true
-supportsNix: true
-defaultScript: ./default.nix

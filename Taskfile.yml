@@ -1,0 +1,14 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - git add *
+      - bash setup.sh
+  check:
+    cmds:
+      - git add *
+      - nix flake check --show-trace
+  format:
+    cmds:
+      - treefmt

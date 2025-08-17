@@ -1,4 +1,1 @@
-# !bin/bash
-git add *
-# nix flake check --show-trace
 sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run nix-darwin -- switch --flake . --show-trace

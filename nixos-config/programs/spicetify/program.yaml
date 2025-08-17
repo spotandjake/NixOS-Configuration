@@ -1,5 +1,0 @@
-name: spicetify
-description: Spotify Additions
-supportsDarwin: true
-supportsNix: true
-defaultScript: ./default.nix

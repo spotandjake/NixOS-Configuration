@@ -1,5 +1,0 @@
-name: fnm
-description: Manage node versions globally
-supportsDarwin: true
-supportsNix: true
-defaultScript: ./default.nix
