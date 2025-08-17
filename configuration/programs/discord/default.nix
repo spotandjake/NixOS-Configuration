@@ -8,6 +8,12 @@ in {
     enable = mkEnableOption "Enables ${name}";
   };
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.discord ];
+    home.packages = [
+      # (pkgs.discord.override {
+      #   # withOpenASAR = true; # can do this here too
+      #   withVencord = true;
+      # })
+      pkgs.discord
+    ];
   };
 }

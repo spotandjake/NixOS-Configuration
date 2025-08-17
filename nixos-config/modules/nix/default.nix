@@ -11,6 +11,7 @@
     registry.s.flake = inputs.self;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
+      download-buffer-size = 524288000;  # 500MB in bytes
     };
     optimise = {
       automatic = true;

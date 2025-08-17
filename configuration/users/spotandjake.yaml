@@ -35,7 +35,6 @@ darwin:
     # wvous-tr-corner
   programs:
     - name: spicetify
-    - name: mars
 nix:
   programs: []
 shared:
