@@ -25,10 +25,10 @@
       extra-platforms = x86_64-darwin aarch64-darwin
     '';
     # Allows us to use linux packages
-    linux-builder = {
-      enable = true;
-      systems = [ "x86_64-linux" "aarch64-linux" ];
-      config.boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
-    };
+    # linux-builder = {
+    #   enable = true;
+    #   systems = [ "x86_64-linux" "aarch64-linux" ];
+    #   config.boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+    # };
   };
 }

@@ -30,6 +30,7 @@
   },
   "files.autoSave": "onFocusChange",
   "git.autofetch": true,
+  "github.copilot.chat.editor.temporalContext.enabled": true,
   "github.copilot.enable": {
     "*": true,
     "grain": true,
@@ -43,6 +44,7 @@
   "grain.trace.server": "messages",
   "javascript.suggest.autoImports": false,
   "ocaml.server.syntaxDocumentation": true,
+  "parallels-desktop.extension.path": "/Users/spotandjake/.parallels-desktop-vscode",
   "scss.lint.unknownAtRules": "ignore",
   "terminal.external.osxExec": "/opt/homebrew/bin/nu",
   "terminal.integrated.defaultProfile.osx": "Nushell",
@@ -59,5 +61,5 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
   "zenMode.hideLineNumbers": false,
-  "github.copilot.chat.editor.temporalContext.enabled": true
+  "parallels-desktop.devops-service.path": "/Users/spotandjake/.parallels-desktop-vscode/tools/prldevops"
 }

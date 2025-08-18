@@ -11,15 +11,13 @@ in
   config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
-      dotDir = ".config/zsh";
+      dotDir = config.home.homeDirectory + "/.config/zsh";
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       initContent = ''
         eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd)"
         export PATH="/opt/homebrew/bin:$PATH"
-        export CC=/opt/homebrew/bin/gcc-14
-        export CXX=/opt/homebrew/bin/g++-14
       '';
       plugins = with pkgs; [
         {

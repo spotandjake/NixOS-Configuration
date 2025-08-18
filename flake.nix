@@ -5,7 +5,7 @@
     # Current nixpkgs version
     nixpkgs.follows = "unstable";
     # Nix Packages
-    master.url = "github:NixOS/nixpkgs/master";
+    master.url = "github:NixOS/nixpkgs/7220b01d679e93ede8d7b25d6f392855b81dd475";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     # Flake Parts
@@ -40,6 +40,6 @@
       # Templates
       templates = import ./templates/default.nix { inherit self; };
       # Setup our devshell
-      devShell.packages = pkgs: [ pkgs.treefmt pkgs.go-task ];
+      devShell.packages = pkgs: [ pkgs.treefmt pkgs.go-task pkgs.gcc ];
     };
 }
