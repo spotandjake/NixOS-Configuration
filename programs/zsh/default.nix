@@ -17,6 +17,9 @@ in
       syntaxHighlighting.enable = true;
       initContent = ''
         eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd)"
+        export PATH="/opt/homebrew/bin:$PATH"
+        export CC=/opt/homebrew/bin/gcc-14
+        export CXX=/opt/homebrew/bin/g++-14
       '';
       plugins = with pkgs; [
         {

@@ -143,4 +143,6 @@ $env.NU_PLUGIN_DIRS = [
 $env.PATH = ($env.PATH | append "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | append "/users/spotandjake/.cargo/bin")
 $env.PATH = ($env.PATH | append "/usr/local/bin")
+$env.CC = "/opt/homebrew/bin/gcc-14"
+$env.CXX = "/opt/homebrew/bin/g++-14"
 $env.RUST_BACKTRACE = 1
