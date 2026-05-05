@@ -18,6 +18,7 @@ in
       initContent = ''
         eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd)"
         export PATH="/opt/homebrew/bin:$PATH"
+        source "$HOME/.cargo/env"
       '';
       plugins = with pkgs; [
         {
