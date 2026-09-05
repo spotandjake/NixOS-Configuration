@@ -61,5 +61,5 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
   "zenMode.hideLineNumbers": false,
-  "parallels-desktop.devops-service.path": "/Users/spotandjake/.parallels-desktop-vscode/tools/prldevops"
+  "workbench.experimental.modernUI": false
 }
